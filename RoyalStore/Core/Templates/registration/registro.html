@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de sesión</title>
+</head>
+<body>
+  <div class="container">
+    <div class="row">
+        <div>
+            <div class="col-12 col-md-6 offset-md-3">
+
+                <div class="card">
+                    <div class="card-body">
+                        <h2>Ingresa tus datos</h2>
+                        <hr>
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            {{form}}
+                            <li><a href="{% url 'Core:home' %}">ir al home</a></li>
+                            <a href="{% url 'login' %}">iniciar sesión</a>
+                            <input type="submit" value="registrar" class="btn btn-succes float-right">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</body>
+</html>
