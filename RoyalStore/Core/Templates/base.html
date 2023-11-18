@@ -8,6 +8,15 @@
 <body>
     <h2>LasDivinas</h2>
     <ul>
+          <!-- Mostrar mensajes -->
+          {% if messages %}
+          <ul class="messages">
+            {% for message in messages %}
+              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        
         <li><a href="{% url 'Core:home' %}">Inicio</a></li>
         <li><a href="{% url 'Core:products' %}">Productos</a></li>
 
@@ -15,10 +24,14 @@
         <li>
             <a href="{% url 'logout' %}">cerrar sesión</a>
         </li>
+        <li><a href="#">@{{user.username}}</a></li>
         {% else %}
         <li>
-            <a href="{% url 'login' %}">iniciar sesión</a>
+            <a href="{% url 'Core:login' %}">iniciar sesión</a>
         </li> 
+        <li>
+            <a href="{% url 'Core:registro' %}">registrarse</a>
+        </li>
         {% endif %}
 
     {% block content %}{% endblock %}
