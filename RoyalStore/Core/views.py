@@ -6,6 +6,3 @@ def home(request):
 
 def products(request):
     return render(request, "products.html")
-
-def registro(request):
-    return render(request, "registration/registro.html")
