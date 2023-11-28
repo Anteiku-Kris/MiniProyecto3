@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document(por ahora)</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <ul>
+          <!-- Mostrar mensajes -->
+          {% if messages %}
+          <ul class="messages">
+            {% for message in messages %}
+              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        <header>
+
+            <div class="back">
+
+                <div class="menu container">
+                    <a href="#" class="logo">Las Divinas</a>
+                    <input type="checkbox" id="menu" />
+                    <label for="menu">
+                        <img src="" class="menu-icono" alt="">
+                    </label>
+                    <nav class="navbar">
+                        <ul>
+                            <li><a href="{% url 'Core:home' %}">Inicio</a></li>
+                            <li><a href="{% url 'Core:products' %}">Productos</a></li>
+                            <li><a href="#">Contacto</a></li>
+                            {% if user.is_authenticated %}
+                            <li>
+                                <a href="{% url 'logout' %}">cerrar sesión</a>
+                            </li>
+                            <li><a href="#">@{{user.username}}</a></li>
+                            {% else %}
+                            <li>
+                                <a href="{% url 'Core:login' %}">iniciar sesión</a>
+                            </li> 
+                            <li>
+                                <a href="{% url 'Core:registro' %}">registrarse</a>
+                            </li>
+                            {% endif %}
+                        </ul>
+                    </nav>
+
+                </div>
+            </div>
+        </header>
+
+    {% block content %}{% endblock %}
+</body>
+</html>

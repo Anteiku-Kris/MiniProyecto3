@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTFs-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro de usuario</title>
+</head>
+<body>
+    <div class="container">
+
+        <div class="row">
+            <div class="card">
+                <div class="card-body">
+                    <h2>Registro de usuario</h2>
+                    <hr>
+
+                    <form action="" method="post">
+                        {% csrf_token %}
+                        {{ form }}
+                        <li><a href="{% url 'Core:home' %}">Ir a home</a></li>
+                        <li><a href="{% url 'Core:login' %}">iniciar sesión</a></li>
+                        <input type="submit" value="registrar">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
