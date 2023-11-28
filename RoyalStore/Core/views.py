@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.views import View
 from .forms import CustomUserCreationForm
 from django.contrib.auth import authenticate, login
 
@@ -23,3 +24,8 @@ def registro(request):
             return redirect(to="Core:home")
         data["form"] = formulario
     return render(request, "registration/registro.html", data)
+
+class OtraVista(View):
+    def get(self, request, *args, **kwargs):
+        # Lógica para la vista
+        return render(request, 'registration/perfil.html', {'username': kwargs['username']})
