@@ -3,10 +3,119 @@
 
 {% block content %}
 
-<div class="contenido-products">
-    <!-- Contenido específico de la página de Inicio/Home -->
-    <h2>Aqui va el tema de detalles-productos</h2>
-    <p>cualquier cosa 4</p>
-</div>
+<body>
+    <header>
+        <h1>{{ producto.name|title }}</h1>
+    </header>
+
+    <div class="container-title">{{producto.category}}</div>
+
+    <main>
+        <div class="container-img">
+            <img src="{{ producto.image.url }}" alt="{{producto.name}}" />
+        </div>
+        <div class="container-info-product">
+            <div class="container-price">
+                <span>$ {{producto.price}}</span>
+                <i class="fa-solid fa-angle-right"></i>
+            </div>
+
+            <div class="container-description">
+                <div class="title-description">
+                    <h4>Descripción</h4>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="text-description">
+                    <p>{{producto.description}}</p>
+                </div>
+            </div>
+
+            <div class="container-add-cart">
+                <div class="container-quantity">
+                    <input
+                        type="number"
+                        placeholder="1"
+                        value="1"
+                        min="1"
+                        class="input-quantity"
+                    />
+                    <div class="btn-increment-decrement">
+                        <i class="fa-solid fa-chevron-up" id="increment"></i>
+                        <i class="fa-solid fa-chevron-down" id="decrement"></i>
+                    </div>
+                </div>
+                <button class="btn-add-to-cart">
+                    <i class="fa-solid fa-plus"></i>
+                    Añadir al carrito
+                </button>
+            </div>
+			
+        </main>
+		<section class="container-related-products">
+            <h2>Reseña</h2>
+            <div class="contenedor-ag">
+                <form method="post" action="{% url 'Core:producto' producto.id %}">
+                    {% csrf_token %}
+                    <div class="content">
+                        <div class="input-box">
+                            <label for="comentario">Reseña</label>
+                            <input type="text" placeholder="Reseña..." name="comentario" required>
+                        </div>
+                
+                        <label for="calificacion">Califica el producto:</label>
+                        <!-- Estrellas para calificación -->
+                        <div class="rating">
+                            <input type="radio" id="star5" name="puntuacion" value="5" />
+                            <label for="star5" title="5 stars"></label>
+                            <input type="radio" id="star4" name="puntuacion" value="4" />
+                            <label for="star4" title="4 stars"></label>
+                            <input type="radio" id="star3" name="puntuacion" value="3" />
+                            <label for="star3" title="3 stars"></label>
+                            <input type="radio" id="star2" name="puntuacion" value="2" />
+                            <label for="star2" title="2 stars"></label>
+                            <input type="radio" id="star1" name="puntuacion" value="1" />
+                            <label for="star1" title="1 star"></label>
+                        </div>
+                
+                        <div class="button-container">
+                            <button type="submit">Enviar</button>
+                        </div>
+                    </div>
+                </form>
+                
+                          
+                          
+                    {% csrf_token %}
+                    
+                </form>
+            </div>
+        </section>
+
+        <footer>
+            <div class="reseñas-container">
+                {% for resena in reseñas reversed %}
+                    <div class="reseña">
+                        <p>{{ resena.comentario }}</p>
+                        <div class="rating">
+                            {% for _ in "54321" %}
+                                {% if forloop.counter <= resena.puntuacion %}
+                                    <span class="selected-star star-selected-color">&#9733;</span>
+                                {% else %}
+                                    <span class="unselected-star star-unselected-color">&#9733;</span>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </footer>
+        
+        
+        <script
+            src="https://kit.fontawesome.com/81581fb069.js"
+            crossorigin="anonymous"
+        ></script>
+        <script src="{% static 'js/index.js' %}"></script>
+</body>
     {% include 'footer.html' %}
 {% endblock %}

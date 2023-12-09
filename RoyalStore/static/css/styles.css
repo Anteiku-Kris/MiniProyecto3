@@ -5,7 +5,6 @@ header {
   padding: 15px 0;
 }
 
-
 .menu {
   display: flex;
   justify-content: space-between;
@@ -89,12 +88,13 @@ header {
 
 .pie-pagina{
     width:100%;
+    height: 50%;
     background-color:#9d76c1;
 }
 
 .pie-pagina .grupo-1{
     width: 100%;
-    max-width: 1200px;
+    max-width: 1000px;
     margin: auto;
     display: grid;
     grid-template-columns: repeat(3,1fr);
@@ -164,3 +164,252 @@ img.pequeña{
     padding: 35px 0px;
 }
 }
+
+/* estilos para el formulario*/
+.contenedor-ag {
+  max-width: 650px;
+  padding: 30px;
+  margin: 0 auto;
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgb(248, 248, 248);
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.6);
+  text-align: center;
+  height: 500px; 
+}
+
+
+h2 {
+  font-size: 26px;
+  font-weight: bold;
+  text-align: center; 
+  color: #7270ec;
+  padding-bottom: 15px;
+  border-bottom: 1px solid silver;
+}
+
+.content{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 20px 0;
+}
+
+.input-box{
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+  padding-bottom: 35px;
+  padding: 80xp;
+  flex-direction: column;
+}
+
+.input-box label{
+  justify-content: right;
+  padding-left: 50px;
+  padding-right: -50px;
+}
+
+.input-box:nth-child(2n){
+  justify-content: end;
+}
+
+.input-box input{
+  height: 40px;
+  width: 95%;
+  padding: 0 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.input-box:is(:focus,:valid){
+  box-shadow: o 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.button-container{
+  margin: 15px 0;
+}
+
+.button-container button{
+  padding: 15px;
+  font-size: 16px;
+  border: none;
+  outline: 0px;
+  background: rgb(73, 26, 95);
+  color: white;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 300ms ease;
+}
+
+.button-container button:hover{
+  background-image: linear-gradient(to right, #61045f, #aa076b);
+}
+
+/*Categorias*/
+
+.headie{
+  padding-top: 50px;
+}
+
+.dct{
+  margin-bottom: 50px;
+  padding: 50px 0 50px 0;
+}
+
+.loogo{
+  font-size: 25px;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 800;
+}
+
+.mennu{
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 1000;
+}
+
+.mennu .naavbar ul li{
+  position: relative;
+  float: left;
+}
+
+.mennu .naavbar ul li a{
+  font-size: 18px;
+  padding: 20px;
+  color: #feffff;
+  display: block;
+}
+
+.mennu .naavbar ul li a:hover{
+  color: #242424;
+}
+
+#mennu{
+  display: none;
+}
+
+.mennu-icono{
+  width: 25px;
+}
+
+.mennu label{
+  cursor: pointer;
+  display: none;
+}
+
+.dct{
+  padding: 350px 0 350px 0;
+  display: flex;
+}
+
+.dct .contenedor-agg{
+  position: relative;
+  padding: auto;
+}
+
+.contenedor-agg {
+  max-width: 500px;
+  padding: 30px 30px;
+  margin: 0 auto;
+  margin-top: 50px;
+  border-radius: 10px;
+  overflow: hidden;
+  background: rgb(248, 248, 248);
+  box-shadow: 0 15px 20px rgba(0, 0, 0, 0.6);
+  text-align: center;
+  height: 500px; 
+  
+}
+
+h2 {
+  font-size: 26px;
+  font-weight: bold;
+  text-align: center; 
+  color: #7270ec;
+  padding-bottom: 15px;
+  border-bottom: 1px solid silver;
+}
+
+.contentC{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 20px 0;
+  margin-top: 50px;
+}
+
+.input-box{
+  display: flex;
+  flex-wrap: wrap;
+  width: 50%;
+  padding-bottom: 35px;
+  flex-direction: column;
+}
+
+.input-box:nth-child(2n){
+  justify-content: end;
+}
+
+.input-box input{
+  height: 40px;
+  width: 95%;
+  padding: 0 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.input-box:is(:focus,:valid){
+  box-shadow: o 3px 6px rgba(0, 0, 0, 0.2);
+}
+
+.button-container{
+  margin: 15px 0;
+}
+
+.button-container button{
+  padding: 15px;
+  font-size: 16px;
+  border: none;
+  outline: 0px;
+  background: rgb(73, 26, 95);
+  color: white;
+  border-radius: 3px;
+  cursor: pointer;
+  transition: all 300ms ease;
+}
+
+.button-container button:hover{
+  background-image: linear-gradient(to right, #61045f, #aa076b);
+}
+
+
+
+@media (max-width: 600px){
+  .contenedor-ag{
+      min-width: 200px;
+  }
+  .content{
+      max-height: 12px;
+      overflow: auto;
+  }
+  .input-box{
+      margin-bottom: 12px;
+      width: 100%;
+  }
+  .input-box:nth-child(2n){
+      justify-content: space-between;
+  }
+  .content::-webkit-scrollbar{
+      width: 0;
+  }
+}
+
