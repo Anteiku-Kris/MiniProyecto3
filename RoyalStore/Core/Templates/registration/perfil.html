@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <h3>Perfil de {{ username }}</h3>
+    <!-- Contenido específico de la página de perfil -->
+    <p>Aquí va el contenido de la página de Perfil.</p>
+
+   
+
+    <!-- JavaScript para redirigir a otra vista -->
+    <script>
+        function redirigirOtraVista(username) {
+            window.location.href = `registration/otra-vista/${username}/`;
+        }
+    </script>
+    {% include 'footer.html' %}
+{% endblock %}
