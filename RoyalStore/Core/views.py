@@ -10,6 +10,9 @@ def home(request):
 def products(request):
     return render(request, "products.html")
 
+def contacts(request):
+    return render(request, "contacts.html")
+
 def registro(request):
     data={
         'form': CustomUserCreationForm()

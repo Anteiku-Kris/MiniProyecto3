@@ -8,6 +8,7 @@ urlpatterns = [
     path('', views.home, name="home"),
     path('products/', views.products, name="products"),
     path('registro/', views.registro, name='registro'),
+    path('contacts/', views.contacts, name="contacts"),
     path('login/', LoginView.as_view(), name='login'),
     path('otra-vista/<str:username>/', OtraVista.as_view(), name='otra_vista'),
 
