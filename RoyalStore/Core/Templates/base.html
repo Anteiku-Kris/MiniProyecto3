@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Document(por ahora)</title>
+    <title>LasDivinas</title>
     <title>-</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-   <link rel="stylesheet" href="{% static 'css/stylepdetalle.css' %}">
    <script src="https://kit.fontawesome.com/ee26d7fa70.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -42,11 +42,19 @@
                                 <li><a href="{% url 'Core:registro' %}">Registrarse</a></li>
                             {% endif %}
                         </ul>
-                    </nav>
+                 </nav>
+                 <div>
+                    <ul>
+                        <li class="submenu">
+                            <img src="{% static 'images/car.svg' %}" id="img-carrito" alt="">
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </header>
-
+        </div>
+    </header>
+        <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script> <!--Biblioteca-->
+        <script src="{% static 'js/script.js' %}"></script>
     {% block content %}{% endblock %}
 </body>
 </html>
