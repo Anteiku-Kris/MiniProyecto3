@@ -2,6 +2,8 @@ from django import forms
 from .models import Productos, Categoria, Resena
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
+from .models import Contacto
+
 
 class CustomUserCreationForm(UserCreationForm):
     
@@ -38,3 +40,9 @@ class ResenaForm(forms.ModelForm):
     class Meta:
         model = Resena
         fields = ['comentario', 'puntuacion']
+
+
+class ContactoForm(forms.ModelForm):
+    class Meta:
+        model = Contacto
+        fields = ('nombre', 'email', 'mensaje')

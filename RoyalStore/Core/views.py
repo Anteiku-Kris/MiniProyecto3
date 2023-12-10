@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.views import View
-from .forms import  AgregarproductosForm, CustomUserCreationForm, ResenaForm
+from .forms import  AgregarproductosForm, CustomUserCreationForm, ResenaForm, ContactoForm
 from django.contrib.auth import authenticate, login
 from .models import Productos, Categoria, Resena
 from django.urls import reverse
@@ -142,3 +142,26 @@ def detallesproductos(request, producto_id):
     return render(request, 'detalles-productos.html', context)
 
 
+def contacts(request):
+    if request.method == 'POST':
+        form = ContactoForm(request.POST)
+        if form.is_valid():
+            # Guardar el formulario si es válido
+            mensaje = form.save(commit=False)  # No guardamos aún en la base de datos
+            if request.user.is_authenticated:
+                # Si el usuario está autenticado, prellenar nombre y email
+                mensaje.nombre = request.user.first_name
+                mensaje.email = request.user.email
+            mensaje.save()  # Ahora guardamos en la base de datos
+            messages.success(request, '¡Su mensaje ha sido enviado!')
+            return redirect('Core:contacts')
+    else:
+        # Si el método no es POST, simplemente muestra el formulario vacío
+        form = ContactoForm()
+
+        if request.user.is_authenticated:
+            # Si el usuario está autenticado, prellenar nombre y email en el formulario
+            form.fields['nombre'].initial = request.user.first_name
+            form.fields['email'].initial = request.user.email
+
+    return render(request, 'contacts.html', {'form': form})
