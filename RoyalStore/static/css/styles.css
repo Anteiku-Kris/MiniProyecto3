@@ -113,10 +113,40 @@ body{
   display: none;
 }
 
+.submenu:hover #carrito{
+  display: block;
+  position: absolute;
+  right: 0;
+  backdrop-filter: blur(10px);
+  top: 100%;
+  z-index: 1;
+  background-color: #4E4B5076;
+  padding: 20px;
+  min-width: 400px;
+}
+
+table{
+  width: 100%;
+}
+
+th, td{
+  color: #feffff;
+  font-size: medium;
+}
+
+.borrar{
+  background-color: #7270ec;
+  border-radius: 50%;
+  padding: 5px 10px;
+  text-decoration: none;
+  color: #feffff;
+  font-weight: 800;
+}
+
 
 /*Estilo para el home*/
 .header-content{
-  padding: 200px 0 100px 0; /*Arreglar horita*/
+  padding: 200px 0 100px 0; 
 }
 
 .header-info{
@@ -701,7 +731,9 @@ img{
   color: #fff;
   padding: 15px 10px;
   cursor: pointer;
+  text-align: center;
 }
+
 
 
 
