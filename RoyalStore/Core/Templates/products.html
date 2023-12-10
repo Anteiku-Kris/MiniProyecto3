@@ -2,7 +2,60 @@
 {% load static %}
 
 {% block content %}
-    <h3>Productos</h3>
-    <!-- Contenido específico de la página de productos -->
-    <p>Aquí va el contenido de la página de productos.</p>
+
+<body class="Productoos">
+    <div> 
+        <div>
+            <button type="button" class="btn btn-primary circular-btn" id="agregar-productos-button" style="font-size: 24px; position: fixed;">+</button>
+            <script>
+                document.addEventListener("DOMContentLoaded", function() {
+                    var agregarproductoButton = document.getElementById("agregar-productos-button");
+                    agregarproductoButton.addEventListener("click", function() {
+                    window.location.href = "{% url 'Core:agregar-productos' %}";
+                    });
+                    });
+            </script>
+        </div> 
+    </div>
+    <div class="CN1">
+    {% for categoria, productos in categorias_con_productos.items %}
+    <h1>{{ categoria.name }}</h1>
+    <div class="container-items">
+        {% for producto in productos %}
+        <div class="items">
+            <figure>
+                <img src="{{ producto.image.url }}" alt="{{ producto.name }}">
+            </figure>
+            <div class="info-product">
+                <h2>{{ producto.name }}</h2>
+                <p class="price">$ {{ producto.price }}</p>
+                <a href="{% url 'Core:producto' producto.id %}">Más información</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endfor %}
+        <div>
+    </div>
+
+</body>
+
+<style>
+    .circular-btn {
+    border-radius: 60%;
+    width: 60px;
+    height: 60px;
+    position: fixed;
+    bottom: 40px;
+    right: 50px;
+    transition: transform 0.3s;
+    }
+    
+    .circular-btn:hover {
+    background-color: #7270ec;
+    transform: rotate(45deg);
+    }
+    
+    </style>
+    {% include 'footer.html' %}
 {% endblock %}

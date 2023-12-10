@@ -1,0 +1,64 @@
+{% load static %}
+
+<footer class="footer container" >
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <div class="link">
+        <h3>Sobre nosotros</h3>
+
+        <ul>
+            <li><a href="#">Quienes somos</a></li>
+            <li><a href="#">Blogger de moda</a></li>
+            <li><a href="#">Descuentos</a></li>
+            <li><a href="#">Empleo</a></li>
+        </ul>
+    </div>
+
+    <!--Footer 2-->
+    <div class="link">
+        <h3>Ayuda y apoyo</h3>
+
+        <ul>
+            <li><a href="#">Info. de envio</a></li>
+            <li><a href="#">Devolución</a></li>
+            <li><a href="#">Reembolso</a></li>
+            <li><a href="#">Rastrear pedido</a></li>
+        </ul>
+    </div>
+
+    <div class="link">
+        <h3>Contactanos</h3>
+    <div class="red-social">
+        <a href="#" class="fa fa-facebook"></a>
+        <a href="#" class="fa fa-instagram"></a>
+        <a href="#" class="fa fa-twitter"></a>
+    </div>    
+    </div>
+
+    <!--Footer 5-->
+    <div class="link">
+        <h3>Las Divinas</h3>
+
+        <p>
+            Nadie pasa de esta esquina
+            Aquí mandan las divinas
+            Porque somos gasolina
+            Gasolina de verdad
+        </p>
+    </div>
+
+    <div class="fin">
+        <div class="box">
+            <figure>
+                <a href="#">
+                    <img class="pequeña" src="{% static 'images/las divinas logo.jpeg' %}" alt="logo de LasDivinas">
+                </a>
+            </figure>
+        </div>
+            <p>&copy; 2023 <b>LasDivinas</b> -Todos los derechos Reservados </p>
+    </div>
+
+</footer>
+    
+{% block content %}{% endblock %}
+</body>
+</html>

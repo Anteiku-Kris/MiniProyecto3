@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<body>
+    <div class="contenedor-ag">
+        <form method="post" action="" enctype="multipart/form-data">
+            <h2>Editar Producto</h2>
+            <div class="content">
+                <div class="input-box">
+                    <label for="producto">Selecciona el Producto a Editar:</label>
+                    <select name="product_select">
+                        <option value="">Selecciona un producto</option>
+                        {% for p in productos %}
+                            <option value="{{ p.id }}">{{ p.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="input-box">
+                    <label for="name">Nuevo Nombre del Producto:</label>
+                    <input type="text" placeholder="Nombre del Producto..." name="name" required>
+                </div>
+                <div class="input-box">
+                    <label for="description">Nueva Descripción:</label>
+                    <input type="text" placeholder="Descripción del Producto..." name="description">
+                </div>
+                <div class="input-box">
+                    <label for="price">Nuevo Precio:</label>
+                    <input type="number" step="0.01" placeholder="Precio del Producto..." name="price">
+                </div>
+                <div class="input-box">
+                    <label for="category">Nueva Categoría:</label>
+                    <select name="category">
+                        <option value="">Selecciona una categoría</option>
+                        {% for c in categorias %}
+                            <option value="{{ c.id }}">{{ c.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="input-box">
+                    <label for="image">Nueva Imagen:</label>
+                    <input type="file" name="image">
+                </div>
+            </div>
+            {% csrf_token %}
+            <div class="button-container">
+                <button type="submit">Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+</body>
+    {% include 'footer.html' %}
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<body>
+    <div class="contenedor-ag">
+        <form method="post">
+            {% csrf_token %}
+            <h2>Eliminar Producto</h2>
+            <div class="content">
+                <div class="input-box">
+                    <label for="producto_id">Selecciona la Producto a Eliminar:</label>
+                    <select name="producto_id" required>
+                        <option value="">Selecciona una producto</option>
+                        {% for p in productos %}
+                            <option value="{{ p.id }}">{{ p.name }}</option>
+                        {% endfor %}
+                    </select>  
+                </div>                  
+            </div>
+            <div class="button-container">
+                <button type="submit">Eliminar Producto</button>
+            </div>  
+        </form>
+        {% if mensaje_error %}
+            <p>{{ mensaje_error }}</p>
+        {% endif %}
+    </div>
+</body>
+    {% include 'footer.html' %}
+{% endblock %}
