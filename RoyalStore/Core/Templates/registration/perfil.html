@@ -2,61 +2,6 @@
 {% load static %}
 
 {% block content %}
-    <style>
-        /* Estilos CSS para la plantilla del perfil de usuario */
-        body {
-            font-family: 'Arial', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f0f0f0;
-        }
-
-        .profile-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-top: 50px; /* Ajusta el margen superior según sea necesario */
-        }
-
-        .profile-picture {
-            margin-right: 20px;
-            position: relative;
-        }
-
-        #profile-image {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: transform 0.3s ease-in-out;
-            object-fit: cover;
-        }
-
-        #profile-image:hover {
-            transform: scale(1.1);
-        }
-
-        #profile-picture-input {
-            display: none;
-        }
-
-        .user-details {
-            max-width: 400px;
-        }
-
-        h3 {
-            color: #333;
-            margin-bottom: 10px;
-        }
-
-        p {
-            color: #666;
-            margin: 0;
-        }
-
-        /* Otros estilos según tus necesidades */
-    </style>
-
 <div class="profile-container">
     <div class="profile-picture">
         <form method="post" enctype="multipart/form-data" action="{% url 'Core:otra_vista' username=username %}">
@@ -90,5 +35,68 @@
             window.location.href = `registration/otra-vista/${username}/`;
         }
     </script>
+
+
+
+
+
+
+
+
+
+<style>
+    /* Estilos CSS para la plantilla del perfil de usuario */
+    body {
+        font-family: 'Arial', sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f0f0;
+    }
+
+    .profile-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 50px; /* Ajusta el margen superior según sea necesario */
+    }
+
+    .profile-picture {
+        margin-right: 20px;
+        position: relative;
+    }
+
+    #profile-image {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: transform 0.3s ease-in-out;
+        object-fit: cover;
+    }
+
+    #profile-image:hover {
+        transform: scale(1.1);
+    }
+
+    #profile-picture-input {
+        display: none;
+    }
+
+    .user-details {
+        max-width: 400px;
+    }
+
+    h3 {
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    p {
+        color: #666;
+        margin: 0;
+    }
+
+    /* Otros estilos según tus necesidades */
+</style>
     {% include 'footer.html' %}
 {% endblock %}

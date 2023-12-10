@@ -1,0 +1,74 @@
+/*login.css */
+body {
+    background-color: #6c69f9; /* Cambiado a color de toda la página */
+    color: #fff; /* Texto blanco */
+}
+
+.contenedol {
+    margin-top: 50px;
+}
+
+.carta {
+    width: 350px;
+    
+    margin: auto;
+    background-color: #242430; /* Color de la tarjeta (lila) */
+    color: #fff; /* Texto blanco en la tarjeta */
+}
+
+.cuerpo-carta {
+    text-align: center;
+    flex-direction: column;
+}
+
+.formato-de-grupo {
+    margin-top: 20px;
+}
+
+.btn-link {
+    margin-top: 10px;
+    color: #fff; /* Color del texto blanco para los enlaces */
+}
+
+/* Estilo adicional para la sección específica */
+.text-info {
+    color: #fff; /* Color del texto blanco para la sección .text-center */
+}
+
+
+
+/* Para el registro */
+
+
+
+.container {
+    margin-top: 50px;
+}
+
+.card {
+    width: 400px;
+    
+    margin: auto;
+    background-color: #242430; /* Color de la tarjeta (lila) */
+    color: #fff; /* Texto blanco en la tarjeta */
+}
+
+.card-body {
+    text-align:start;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-top: 20px;
+    text-align: justify;
+}
+
+.btn-link {
+    margin-top: 10px;
+    color: #fff; /* Color del texto blanco para los enlaces */
+}
+
+/* Estilo adicional para la sección específica */
+.text-center {
+    color: #fff; /* Color del texto blanco para la sección .text-center */
+}
