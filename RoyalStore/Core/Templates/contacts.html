@@ -3,10 +3,13 @@
 
 {% block content %}
 
-<div class="contenido-products">
-    <!-- Contenido específico de la página de Inicio/Home -->
-    <h2>Aqui va el tema de contactos</h2>
-    <p>cualquier cosa contactos</p>
-</div>
-    {% include 'footer.html' %}
+
+<form method="post" action="{% url 'Core:contacts' %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value="Enviar Mensaje">
+</form>
+
+
+{% include 'footer.html' %}
 {% endblock %}
