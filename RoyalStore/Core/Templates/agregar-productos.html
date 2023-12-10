@@ -3,10 +3,60 @@
 
 {% block content %}
 
-<div class="contenido-products">
-    <!-- Contenido específico de la página de Inicio/Home -->
-    <h2>Aqui va el tema de agregar-productos</h2>
-    <p>cualquier cosa gregar-productos</p>
-</div>
+<body>
+    <div class="contenedor-ag">
+        <form method="post" action="" enctype="multipart/form-data">
+            <h2>Agregar Producto</h2>
+            <div class="content">
+                <div class="input-box">
+                    <label for="name">Nombre del Producto</label>
+                    <input type="text" placeholder="Nombre del Producto..." name="name" required>
+                </div>
+                <div class="input-box">
+                    <label for="description">Descripción</label>
+                    <input type="text" placeholder="Descripción del Producto..." name="description" required>
+                </div>
+                <div class="input-box">
+                    <label for="price">Precio</label>
+                    <input type="number" step="0.01" placeholder="Precio del Producto..." name="price" required>
+                </div>
+                <div class="input-box">
+                    <label for="image">Imagen del Producto</label>
+                    <input type="file" class="form-control" id="image" name="image" required>
+                </div>
+                <div class="input-box">
+                    <label for="category">Categoría del Producto</label>
+                    <select name="category" required>
+                        {% for category in categorias %}
+                            <option value="{{ category.id }}">{{ category|capfirst }}</option>
+                        {% endfor %}
+                    </select>
+                </div>               
+                {% csrf_token %}
+            </div>
+            <div class="button-container">
+                <button type="button" id="editar-producto-button">Editar Producto</buttontype></button>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        var editarProductoButton = document.getElementById("editar-producto-button");
+                        editarProductoButton.addEventListener("click", function() {
+                            window.location.href = "{% url 'Core:editar-productos' %}";
+                        });
+                    });
+                </script>
+                <button type="submit">Guardar Producto</button>
+                <button type="button" id="eliminar-producto-button">Eliminar Producto</buttontype></button>
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                        var eliminarProductoButton = document.getElementById("eliminar-producto-button");
+                        eliminarProductoButton.addEventListener("click", function() {
+                            window.location.href = "{% url 'Core:eliminar-productos' %}";
+                        });
+                    });
+                </script>
+            </div>
+        </form>
+    </div>
+</body>
     {% include 'footer.html' %}
 {% endblock %}

@@ -8,6 +8,7 @@
     <title>Document(por ahora)</title>
     <title>-</title>
    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+   <link rel="stylesheet" href="{% static 'css/stylepdetalle.css' %}">
    <script src="https://kit.fontawesome.com/ee26d7fa70.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -30,7 +31,7 @@
                     <nav class="navbar">
                         <ul>
                             <li><a href="{% url 'Core:home' %}">Inicio</a></li>
-                            <li><a href="{% url 'Core:products' %}">Productos</a></li>
+                            <li><a href="{% url 'Core:productos' %}">Productos</a></li>
                             <li><a href="{% url 'Core:contacts' %}">Contacto</a></li>
                             {% if user.is_authenticated %}
                                 <li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
