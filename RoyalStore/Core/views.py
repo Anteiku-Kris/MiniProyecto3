@@ -1,10 +1,14 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.views import View
-from .forms import  AgregarproductosForm, CustomUserCreationForm, ResenaForm, ContactoForm
+from .forms import  AgregarproductosForm, CustomUserCreationForm, ResenaForm, ContactoForm, UserProfileFormWithoutWebsite
 from django.contrib.auth import authenticate, login
-from .models import Productos, Categoria, Resena
+from django.contrib.auth.models import User
+from .models import Productos, Categoria, Resena, UserProfile
 from django.urls import reverse
+
+
+
 
 def home(request):
     return render(request, "home.html")
@@ -27,10 +31,6 @@ def registro(request):
         data["form"] = formulario
     return render(request, "registration/registro.html", data)
 
-class OtraVista(View):
-    def get(self, request, *args, **kwargs):
-        # Lógica para la vista
-        return render(request, 'registration/perfil.html', {'username': kwargs['username']})
     
 def productosvistas(request): 
     categorias = Categoria.objects.all()
@@ -165,3 +165,20 @@ def contacts(request):
             form.fields['email'].initial = request.user.email
 
     return render(request, 'contacts.html', {'form': form})
+
+def ver_perfil(request, username):
+    user = get_object_or_404(User, username=username)
+    try:
+        profile = UserProfile.objects.get(user=user)
+    except UserProfile.DoesNotExist:
+        profile = UserProfile.objects.create(user=user)
+
+    if request.method == 'POST':
+        form = UserProfileFormWithoutWebsite(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('Core:perfil', username=username)
+    else:
+        form = UserProfileFormWithoutWebsite(instance=profile)
+
+    return render(request, 'registration/perfil.html', {'user': user, 'profile': profile, 'form': form})
