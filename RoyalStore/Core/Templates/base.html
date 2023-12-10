@@ -43,10 +43,25 @@
                             {% endif %}
                         </ul>
                  </nav>
+                 
                  <div>
                     <ul>
                         <li class="submenu">
                             <img src="{% static 'images/car.svg' %}" id="img-carrito" alt="">
+                            <div id="carrito">
+                                <table id="lista-carrito">
+                                    <thead>
+                                        <tr>
+                                            <th>Imagen</th>
+                                            <th>Nombre</th>
+                                            <th>Precio</th>
+                                            <th></th>                                                 
+                                        </tr>
+                                    </thead>
+                                    <tbody></tbody>
+                                </table>
+                                <a href="#" id="vaciar-carrito" class="btn-3">Vaciar carrito</a>
+                            </div>
                         </li>
                     </ul>
                 </div>
@@ -54,7 +69,98 @@
         </div>
     </header>
         <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script> <!--Biblioteca-->
-        <script src="{% static 'js/script.js' %}"></script>
+        <script>
+document.addEventListener("DOMContentLoaded", function() {
+    const productos = document.querySelectorAll('.items');
+    const carrito = document.getElementById('carrito');
+    const vaciarCarritoBtn = document.getElementById('vaciar-carrito');
+    const listaCarrito = document.querySelector('#lista-carrito tbody');
+
+    if (productos.length > 0 && carrito && vaciarCarritoBtn) {
+        cargarEventListeners();
+    } else {
+        console.error('Alguno de los elementos no se encontró en el DOM.');
+    }
+
+    function cargarEventListeners() {
+        productos.forEach(producto => {
+            producto.addEventListener('click', comprarElemento);
+        });
+
+        // Manejar clic en "Agregar al carrito" utilizando jQuery
+        $('.agregar-carrito').on('click', function(event) {
+            event.preventDefault();
+            const productoId = $(this).data('id');
+            const producto = obtenerInfoProducto($(this).closest('.items')[0]);
+            agregarProductoAlCarrito(producto);
+        });
+
+        // Manejar clic en "Más información" utilizando jQuery
+        $('.mas-informacion').on('click', function(event) {
+            // Tu lógica específica para "Más información"
+            event.preventDefault();
+            const productoId = $(this).data('id');
+            // Agrega aquí la lógica que deseas ejecutar al hacer clic en "Más información"
+        });
+
+        carrito.addEventListener('click', eliminarElemento);
+        vaciarCarritoBtn.addEventListener('click', vaciarCarrito);
+    }
+
+    function comprarElemento(event) {
+        event.preventDefault();
+
+        // Obtén la información del producto
+        const producto = obtenerInfoProducto(event.currentTarget);
+
+        // Agrega el producto al carrito
+        agregarProductoAlCarrito(producto);
+    }
+
+    function obtenerInfoProducto(producto) {
+        const infoProducto = {
+            imagen: producto.querySelector('img').src,
+            nombre: producto.querySelector('h2').textContent,
+            precio: producto.querySelector('.price').textContent,
+            id: producto.querySelector('.agregar-carrito').getAttribute('data-id')
+        };
+        return infoProducto;
+    }
+
+    function agregarProductoAlCarrito(producto) {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>
+                <img src="${producto.imagen}" width="50">
+            </td>
+            <td>${producto.nombre}</td>
+            <td>${producto.precio}</td>
+            <td>
+                <a href="#" class="eliminar-elemento" data-id="${producto.id}">X</a>
+            </td>
+        `;
+        listaCarrito.appendChild(row);
+    }
+
+    function eliminarElemento(e) {
+        e.preventDefault();
+        if (e.target.classList.contains('eliminar-elemento')) {
+            const productoId = e.target.getAttribute('data-id');
+            const productoEliminar = document.querySelector(`#lista-carrito [data-id="${productoId}"]`);
+            productoEliminar.parentElement.parentElement.remove();
+        }
+    }
+
+    function vaciarCarrito() {
+        while (listaCarrito.firstChild) {
+            listaCarrito.removeChild(listaCarrito.firstChild);
+        }
+    }
+});
+
+
+        </script>
+
     {% block content %}{% endblock %}
 </body>
 </html>

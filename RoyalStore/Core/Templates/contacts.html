@@ -3,13 +3,127 @@
 
 {% block content %}
 
+<div class="contact_form">
 
-<form method="post" action="{% url 'Core:contacts' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Enviar Mensaje">
-</form>
+    <div class="formulario">			
+        <h1>Formulario de contacto</h1>
+            <h3>Escríbenos y en breve los pondremos en contacto contigo</h3>
+    </div>
 
+
+    <form method="post" action="{% url 'Core:contacts' %}">
+        {% csrf_token %}							
+        {{ form.as_p }}
+        <input type="submit" value="Enviar Mensaje">
+    </form>
+
+</div>
+
+<style>
+
+.contact_form{	
+width: 460px; 
+height: 745px;
+margin: 80px auto;
+border-radius: 10px;  
+padding-top: 30px;
+padding-bottom: 20px;  
+background-color: #fbfbfb; 
+padding-left: 30px; 
+margin-bottom: 50px;
+}
+
+input{
+	background-color: #E5CFF7; 
+	width: 408px; 
+	height: 40px; 
+	border-radius: 5px;  
+	border-style: solid; 
+	border-width: 1px; 
+	border-color: #9D76C1; 
+	margin-top: 10px;  
+	padding-left: 10px;
+    margin-bottom: 20px; 
+}
+
+
+textarea{
+  background-color: #E5CFF7; 
+	width: 405px; 
+	height: 150px; 
+	border-radius: 5px;  
+	border-style: solid; 
+	border-width: 1px; 
+	border-color: #9D76C1; 
+	margin-top: 10px;  
+	padding-left: 10px;
+  margin-bottom: 20px; 
+  padding-top: 15px; 
+}
+
+
+button{
+	height: 45px; 
+	padding-left: 5px;
+	padding-right: 5px; 	
+	margin-bottom: 20px; 
+	margin-top: 10px; 	
+	text-transform: uppercase;
+	background-color: #9D76C1; 
+	border-color: #9D76C1; 
+	border-style: solid; 
+	border-radius: 10px;	
+	width: 420px;   
+  cursor: pointer;
+}
+
+
+button p{
+	color: #fff; 
+}
+
+
+span{
+	color: #5B0888; 
+}
+
+
+h1{
+	font-size: 39px;  
+	text-align: letf; 
+	padding-bottom: 20px; 
+	color: #0e0e0e;
+    text-align: center;
+}
+
+
+h3{
+	font-size: 16px; 
+	padding-bottom: 30px;
+	color: #0e0e0e;   
+}
+
+
+p{
+	font-size: 14px; 
+	color: #0e0e0e; 
+}
+
+
+.formulario input:focus{
+	outline:0;
+	border: 1px solid #5B0888;
+}
+
+
+.formulario textarea:focus{
+	outline:0;
+	border: 1px solid #5B0888;
+}
+
+
+
+</style>
 
 {% include 'footer.html' %}
 {% endblock %}
