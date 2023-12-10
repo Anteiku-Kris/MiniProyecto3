@@ -35,8 +35,7 @@
                             <li><a href="{% url 'Core:contacts' %}">Contacto</a></li>
                             {% if user.is_authenticated %}
                                 <li><a href="{% url 'logout' %}">Cerrar sesión</a></li>
-                                <!-- Agregamos un enlace al nombre de usuario -->
-                                <li><a href="{% url 'Core:otra_vista' username=user.username %}">@{{user.username}}</a></li>
+                                <li><a href="{% url 'Core:perfil' username=user.username %}">@{{user.username}}</a></li> 
                             {% else %}
                                 <li><a href="{% url 'Core:login' %}">Iniciar sesión</a></li> 
                                 <li><a href="{% url 'Core:registro' %}">Registrarse</a></li>
