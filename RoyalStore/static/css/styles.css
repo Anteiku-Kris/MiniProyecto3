@@ -8,7 +8,6 @@
   list-style: none;
 }
 
-
 body{
   background-color: #242430; /*Color de toda la pagina*/
   font-family: 'Poppins', sans-serif;
@@ -104,6 +103,7 @@ body{
   cursor: pointer;
   display: none;
 }
+
 
 .submenu{
   position: relative;
@@ -404,7 +404,7 @@ main {
 }
 
 .btn-clean:hover {
-	color: #dc6e14;
+	color: #7270ec;
 }
 
 .container-add-cart {
@@ -475,14 +475,14 @@ main {
 }
 
 .btn-add-to-cart:hover {
-	color: #1bbeb4;
+	color: #7270ec;
 }
 
 .hidden {
 	display: none;
 }
 .fa-chevron-down:hover {
-	color: #1bbeb4;
+	color: #7270ec;
 }
 .container-description,
 .container-additional-information,
@@ -521,14 +521,14 @@ main {
 
 /* Estilos para las estrellas de calificación */
 .fa-chevron-down:hover {
-	color: #1bbeb4;
+	color: #7270ec;
 }
 
 .star-unselected-color {
-    color: white;
+    color: #7270ec;
 }
 .star-selected-color {
-    color: #9D76C1;
+    color: #fff;
 	
 }
 
@@ -545,7 +545,7 @@ main {
     width: 1em;
     margin: 0 0.1em;
     font-size: 24px;
-    color: #ddd;
+    color: #E5CFF7;
     text-align: center;
     line-height: 1.2;
 }
@@ -561,7 +561,7 @@ main {
 	justify-content: space-between;
 	padding: 10px 0;
 	align-items: center;
-	border-bottom: 1px solid #e4e4e4;
+	border-bottom: 1px solid #E5CFF7;
 }
 
 .container-social span {
@@ -582,7 +582,7 @@ main {
 }
 
 .container-buttons-social a:hover {
-	color: #1bbeb4;
+	color: #E5CFF7;
 }
 
 .container-related-products h2 {
@@ -629,16 +629,16 @@ main {
 }
 
 .text-product h3:hover{
-    color: #1bbeb4;
+    color: #E5CFF7;
 }
 
 .text-product p{
     color: #666;
-    font-size: 13px;
+    font-size: 20px;
 }
 
 .text-product p:hover{
-    color: #1bbeb4;
+    color: #E5CFF7;
 }
 
 /*Estilo de productos*/
@@ -686,7 +686,7 @@ img{
 }
 
 .items:hover{
-  box-shadow: 0 10px 20px rgba(0, 0  , 0, 0.20);
+  box-shadow: #7270ec;
 }
 
 .items img{
@@ -734,43 +734,15 @@ img{
   text-align: center;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.info-product button{
+  border: none;
+  background: none;
+  background-color: #000;
+  color: #fff;
+  padding: 15px 10px;
+  cursor: pointer;
+  text-align: center;
+}
 
 /* Estilos para el footer */
 
@@ -804,7 +776,7 @@ img{
   display: inline-block;
   text-decoration: none;
   width: 45px;
-  height: 45px; /* Corregí aquí, añadí px */
+  height: 45px; 
   line-height: 45px;
   color: #ffff;
   margin-right: 10px;
@@ -886,6 +858,7 @@ h2 {
   justify-content: right;
   padding-left: 50px;
   padding-right: -50px;
+  padding-bottom: 15px;
 }
 
 .input-box:nth-child(2n){
@@ -899,6 +872,9 @@ h2 {
   border-radius: 5px;
   border: 1px solid #ccc;
   outline: none;
+  border-color: #7270ec;
+  border-radius: 5px;  
+	border-style: solid;
 }
 
 .input-box:is(:focus,:valid){
@@ -914,7 +890,7 @@ h2 {
   font-size: 16px;
   border: none;
   outline: 0px;
-  background: rgb(73, 26, 95);
+  background: #000;
   color: white;
   border-radius: 3px;
   cursor: pointer;
@@ -922,10 +898,10 @@ h2 {
 }
 
 .button-container button:hover{
-  background-image: linear-gradient(to right, #61045f, #aa076b);
+  background-color: #7270ec;
 }
 
-
+/*Hasta aqui*/
 
 @media (max-width: 600px){
   .contenedor-ag{

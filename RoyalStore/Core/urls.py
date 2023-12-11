@@ -15,6 +15,6 @@ urlpatterns = [
     path('contacts/', views.contacts, name="contacts"),
     path('login/', LoginView.as_view(), name='login'),
     path('perfil/<str:username>/', ver_perfil, name='perfil'),
-
+    path('finalizar-compra/', views.compra, name="compra"),
 ]
 

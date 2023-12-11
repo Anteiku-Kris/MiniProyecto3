@@ -150,10 +150,9 @@ def contacts(request):
             mensaje = form.save(commit=False)  # No guardamos aún en la base de datos
             if request.user.is_authenticated:
                 # Si el usuario está autenticado, prellenar nombre y email
-                mensaje.nombre = request.user.first_name
+                mensaje.nombre = request.user.username
                 mensaje.email = request.user.email
             mensaje.save()  # Ahora guardamos en la base de datos
-            messages.success(request, '¡Su mensaje ha sido enviado!')
             return redirect('Core:contacts')
     else:
         # Si el método no es POST, simplemente muestra el formulario vacío
@@ -161,7 +160,7 @@ def contacts(request):
 
         if request.user.is_authenticated:
             # Si el usuario está autenticado, prellenar nombre y email en el formulario
-            form.fields['nombre'].initial = request.user.first_name
+            form.fields['nombre'].initial = request.user.username
             form.fields['email'].initial = request.user.email
 
     return render(request, 'contacts.html', {'form': form})
@@ -182,3 +181,6 @@ def ver_perfil(request, username):
         form = UserProfileFormWithoutWebsite(instance=profile)
 
     return render(request, 'registration/perfil.html', {'user': user, 'profile': profile, 'form': form})
+
+def compra(request):
+    return render(request, 'compra.html')
