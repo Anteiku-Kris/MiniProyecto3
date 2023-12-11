@@ -7,11 +7,10 @@
 
     <div class="formulario">			
         <h1>Formulario de contacto</h1>
-            <h3>Escríbenos y en breve los pondremos en contacto contigo</h3>
+        <h3>Escríbenos y en breve los pondremos en contacto contigo</h3>
     </div>
 
-
-    <form method="post" action="{% url 'Core:contacts' %}">
+    <form method="post" action="{% url 'Core:contacts' %}" class="contactForm">
         {% csrf_token %}							
         {{ form.as_p }}
         <input type="submit" value="Enviar Mensaje">
@@ -19,109 +18,146 @@
 
 </div>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const forms = document.querySelectorAll(".contactForm");
+
+        forms.forEach(function (form) {
+            form.addEventListener("submit", function (event) {
+                event.preventDefault(); // Evita que el formulario se envíe normalmente
+
+                // Muestra el mensaje emergente personalizado
+                mostrarMensaje("Solicitud enviada. Nos pondremos en contacto pronto.");
+
+                // Espera 4 segundos antes de enviar el formulario
+                setTimeout(function () {
+                    // Envía el formulario después de 4 segundos
+                    form.submit();
+                }, 4000);
+            });
+        });
+
+        function mostrarMensaje(mensaje) {
+            // Crear un elemento de mensaje personalizado
+            const mensajePopup = document.createElement("div");
+            mensajePopup.className = "popup";
+            mensajePopup.textContent = mensaje;
+
+            // Agregar el mensaje al cuerpo del documento
+            document.body.appendChild(mensajePopup);
+
+            // Establecer un temporizador para ocultar el mensaje después de 4 segundos
+            setTimeout(function () {
+                document.body.removeChild(mensajePopup);
+            }, 4000);
+        }
+    });
+</script>
+
 <style>
 
-.contact_form{	
-width: 460px; 
-height: 745px;
-margin: 80px auto;
-border-radius: 10px;  
-padding-top: 30px;
-padding-bottom: 20px;  
-background-color: #fbfbfb; 
-padding-left: 30px; 
-margin-bottom: 50px;
+.contact_form{    
+    width: 460px; 
+    height: 745px;
+    margin: 80px auto;
+    border-radius: 10px;  
+    padding-top: 30px;
+    padding-bottom: 20px;  
+    background-color: #fbfbfb; 
+    padding-left: 30px; 
+    margin-bottom: 50px;
+}
+
+.popup {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 15px;
+    background-color: #9D76C1; /* Color de fondo personalizado */
+    color: #fff; /* Color del texto */
+    border-radius: 5px;
+    z-index: 9999;
 }
 
 input{
-	background-color: #E5CFF7; 
-	width: 408px; 
-	height: 40px; 
-	border-radius: 5px;  
-	border-style: solid; 
-	border-width: 1px; 
-	border-color: #9D76C1; 
-	margin-top: 10px;  
-	padding-left: 10px;
+    background-color: #E5CFF7; 
+    width: 408px; 
+    height: 40px; 
+    border-radius: 5px;  
+    border-style: solid; 
+    border-width: 1px; 
+    border-color: #9D76C1; 
+    margin-top: 10px;  
+    padding-left: 10px;
     margin-bottom: 20px; 
 }
 
-
 textarea{
-  background-color: #E5CFF7; 
-	width: 405px; 
-	height: 150px; 
-	border-radius: 5px;  
-	border-style: solid; 
-	border-width: 1px; 
-	border-color: #9D76C1; 
-	margin-top: 10px;  
-	padding-left: 10px;
-  margin-bottom: 20px; 
-  padding-top: 15px; 
+    background-color: #E5CFF7; 
+    width: 405px; 
+    height: 150px; 
+    border-radius: 5px;  
+    border-style: solid; 
+    border-width: 1px; 
+    border-color: #9D76C1; 
+    margin-top: 10px;  
+    padding-left: 10px;
+    margin-bottom: 20px; 
+    padding-top: 15px; 
 }
-
 
 button{
-	height: 45px; 
-	padding-left: 5px;
-	padding-right: 5px; 	
-	margin-bottom: 20px; 
-	margin-top: 10px; 	
-	text-transform: uppercase;
-	background-color: #9D76C1; 
-	border-color: #9D76C1; 
-	border-style: solid; 
-	border-radius: 10px;	
-	width: 420px;   
-  cursor: pointer;
+    height: 45px; 
+    padding-left: 5px;
+    padding-right: 5px;     
+    margin-bottom: 20px; 
+    margin-top: 10px;     
+    text-transform: uppercase;
+    background-color: #9D76C1; 
+    border-color: #9D76C1; 
+    border-style: solid; 
+    border-radius: 10px;    
+    width: 420px;   
+    cursor: pointer;
 }
-
 
 button p{
-	color: #fff; 
+    color: #fff; 
 }
-
 
 span{
-	color: #5B0888; 
+    color: #5B0888; 
 }
 
-
 h1{
-	font-size: 39px;  
-	text-align: letf; 
-	padding-bottom: 20px; 
-	color: #0e0e0e;
+    font-size: 39px;  
+    text-align: letf; 
+    padding-bottom: 20px; 
+    color: #0e0e0e;
     text-align: center;
 }
 
-
 h3{
-	font-size: 16px; 
-	padding-bottom: 30px;
-	color: #0e0e0e;   
+    font-size: 16px; 
+    padding-bottom: 30px;
+    color: #0e0e0e;   
 }
-
 
 p{
-	font-size: 14px; 
-	color: #0e0e0e; 
+    font-size: 14px; 
+    color: #0e0e0e; 
 }
-
 
 .formulario input:focus{
-	outline:0;
-	border: 1px solid #5B0888;
+    outline:0;
+    border: 1px solid #5B0888;
 }
-
 
 .formulario textarea:focus{
-	outline:0;
-	border: 1px solid #5B0888;
+    outline:0;
+    border: 1px solid #5B0888;
 }
-
-
 
 </style>
 

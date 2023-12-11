@@ -12,8 +12,7 @@
         <div id="modal" class="modal" style="display: none;">
             <span class="close" id="closeModal">&times;</span>
             <img src="{{ profile.profile_picture.url }}" alt="Foto de perfil" class="full-profile-picture ">
-            <!-- Agregar el nombre del usuario en el panel de imagen completa -->
-            <h1 class="user-name">{{ user.username }}</h1>
+                <h1 class="user-name">{{ user.username }}</h1>
         </div>
 
         <img src="{{ profile.profile_picture.url }}" alt="Foto de perfil" class="profile-picture shadow-drop-center" id="profilePicture">
@@ -251,6 +250,7 @@
     /* Estilos para el navbar */
     #navbar {
         z-index: 1; /* Ajusta el valor según sea necesario, pero debe ser más bajo que el modal */
+        padding-bottom: 150px;
     }
 
     /* Estilos para la imagen de perfil circular */
@@ -263,18 +263,31 @@
     }
 
     /* Estilos para la imagen de perfil completa en el modal */
-    .full-profile-picture {
-    display: block;
-    margin: 0 auto;
-    border-radius:50%; 
-    width:100%; 
-    height: auto; 
-    max-width:500px; 
-    max-height: 500px; 
-    background-color: transparent;
+   
+.full-profile-picture {
+    display: flex;
+    flex-direction: column; /* Cambia la dirección del flex a columna */
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 450px;
+    height: 450px;
+    max-width: 90%;
+    max-height: 90%;
     border-radius: 50%;
-    z-index: 2;
-    padding-top: 100px;
+    overflow: hidden;
+    background-color: #e0e0e0;
+}
+
+.user-name {
+    color: #fff;
+    font-size: 24px;
+    margin-top: 10px;
+    text-align: center;
+    padding-top: 600px;
 }
 
 
@@ -290,6 +303,7 @@
         overflow: auto;
         background-color: rgb(0,0,0);
         background-color: rgba(0,0,0,0.9);
+        padding-bottom: 150px;
     }
 
     /* Estilos para cerrar el modal */
@@ -303,13 +317,6 @@
         cursor: pointer;
     }
 
-    /* Estilos para el nombre de usuario en el modal */
-    .user-name {
-        color: #fff;
-        font-size: 24px;
-        text-align: center;
-        margin-top: 10px;
-    }
 </style>
 
 {% include 'footer.html' %}
