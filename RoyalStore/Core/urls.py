@@ -1,7 +1,7 @@
 from django.urls import path
 from . import views
 from django.contrib.auth.views import LoginView
-from .views import ver_perfil
+from .views import ver_perfil, agregar_favorito
 app_name = "Core"
 
 urlpatterns = [
@@ -16,5 +16,7 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('perfil/<str:username>/', ver_perfil, name='perfil'),
     path('finalizar-compra/', views.compra, name="compra"),
+    path('agregar_favorito/', views.agregar_favorito, name='agregar_favorito'),
+
 ]
 
