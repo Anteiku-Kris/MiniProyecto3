@@ -45,12 +45,20 @@
                 <h2>{{ producto.name }}</h2>
                 <p class="price">$ {{ producto.price }}</p>
                 <a href="{% url 'Core:producto' producto.id %}">Más información</a>
-                <a href="#" class="agregar-carrito btn-3" data-id="{{ producto.id }}">Agregar al carrito</a>
+                <button class="agregar-carrito btn-3" data-id="{{ producto.id }}">Agregar al carrito</button>
+                <div class="title">Agregar a favoritos</div>
+                    <div class="heart-wrapper">
+                        <i class="far fa-heart"></i>
+                </div>
             </div>
         </div>
         {% endfor %}
     </div>
 {% endfor %}
+ </div>
+
+
+
 
 </body>
 
@@ -152,56 +160,10 @@ form {
     vertical-align: top;
 }
 
-
-/* Overlay */
-
-.overlay {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, .9);
-    width: 100%;
-    height: 100vh;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.overlay.activo {
-    display: flex;
-}
-
-.overlay img {
-    max-width: 100%;
-}
-
-.overlay .descripcion {
-    display: block;
-    background: #fff;
-    padding: 20px;
-    text-align: center;
-    margin-top: 5px;
-    border-radius: 10px;
-    max-width: 50%;
-}
-
 .contenedor-img {
     position: relative;
 }
 
-.overlay #btn-cerrar-popup {
-    background: none;
-    font-size: 20px;
-    color: white;
-    border: none;
-    cursor: pointer;
-    position: absolute;
-    right: -20px;
-    top: -20px;
-}
 
 .items {
     display: block;
@@ -212,6 +174,110 @@ form {
 
 .items:hidden {
     display: none;
+}
+
+/*Corazon*/
+
+.title {
+  display: block;
+  text-align: center;
+  font-family: sans-serif;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 24px;
+  color: grey;
+}
+.heart-wrapper {
+  width: 50px;
+  height: 50px;
+  margin-top: 500px;
+  position: relative;
+  background-color: white;
+  border-radius: 50px;
+  margin: auto;
+  -webkit-box-shadow: 0px 3px 29px 0px rgba(160, 160, 160, 1);
+  -moz-box-shadow: 0px 3px 29px 0px rgba(160, 160, 160, 1);
+  box-shadow: 0px 3px 29px 0px rgba(160, 160, 160, 1);
+  transition: 0.3s;
+}
+.heart-wrapper:hover {
+  -webkit-box-shadow: 0px 2px 15px 0px rgba(117, 117, 117, 1);
+  -moz-box-shadow: 0px 2px 15px 0px rgba(117, 117, 117, 1);
+  box-shadow: 0px 2px 15px 0px rgba(117, 117, 117, 1);
+}
+.fa-heart {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+  color: #ff8484;
+  transition: 1s;
+}
+.background-heart{
+  background-color:white;
+}
+.background-heart::after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 700;
+  content: "\f004";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 38px;
+  color: red;
+  transition: 1s;
+  z-index: -1;
+  animation: fill-heart 1s;
+}
+
+.background-heart::before {
+  content: "";
+  width: 50px;
+  height: 50px;
+  opacity: 0.2;
+  background-color: red;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  border-radius: 200px;
+  animation: circle-expand 1s;
+}
+
+@keyframes fill-heart {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes circle-expand {
+  0% {
+    width: 60px;
+    height: 60px;
+    opacity: 1;
+  }
+  40% {
+    width: 0px;
+    height: 0px;
+    opacity: 0.2;
+  }
+  80% {
+    width: 60px;
+    height: 60px;
+    opacity: 0.2;
+  }
+
+  100% {
+    width: 60px;
+    height: 60px;
+    opacity: 0.2;
+  }
 }
 
 </style>
@@ -261,6 +327,11 @@ form {
             }
         });
     }
+
+    $(".fa-heart").click(function() {
+  $(this).toggleClass("background-heart");
+});
+
 </script>
 
 {% include 'footer.html' %}

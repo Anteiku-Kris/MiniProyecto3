@@ -105,6 +105,7 @@ body{
   display: none;
 }
 
+
 .submenu{
   position: relative;
 }
@@ -582,7 +583,7 @@ main {
 }
 
 .container-buttons-social a:hover {
-	color: #1bbeb4;
+	color: #61045f;
 }
 
 .container-related-products h2 {
@@ -686,7 +687,7 @@ img{
 }
 
 .items:hover{
-  box-shadow: 0 10px 20px rgba(0, 0  , 0, 0.20);
+  box-shadow: #7270ec;
 }
 
 .items img{
@@ -725,6 +726,16 @@ img{
 }
 
 .info-product a{
+  border: none;
+  background: none;
+  background-color: #000;
+  color: #fff;
+  padding: 15px 10px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.info-product button{
   border: none;
   background: none;
   background-color: #000;

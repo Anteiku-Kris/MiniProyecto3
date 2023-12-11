@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css">
    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
    <script src="https://kit.fontawesome.com/ee26d7fa70.js" crossorigin="anonymous"></script>
+   <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
 </head>
 <body>
     <ul>
@@ -25,9 +27,7 @@
             <div class="back">
                 <div class="menu container">
                     <a href="#" class="logo">Las Divinas</a>
-                    <label for="menu">
-
-                    </label>
+                    <label for="menu"></label>
                     <nav class="navbar">
                         <ul>
                             <li><a href="{% url 'Core:home' %}">Inicio</a></li>
@@ -42,7 +42,6 @@
                             {% endif %}
                         </ul>
                  </nav>
-                 
                  <div>
                     <ul>
                         <li class="submenu">
@@ -54,110 +53,188 @@
                                             <th>Imagen</th>
                                             <th>Nombre</th>
                                             <th>Precio</th>
-                                            <th></th>                                                 
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody></tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <td colspan="2"></td>
+                                            <td>Subtotal:</td>
+                                            <td id="subtotal-precio">0.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"></td>
+                                            <td>Impuesto (7%):</td>
+                                            <td id="impuesto-precio">0.00</td>
+                                        </tr>
+                                        <tr>
+                                            <td colspan="2"></td>
+                                            <td>Total:</td>
+                                            <td id="total-precio">0.00</td>
+                                        </tr>
+                                    </tfoot>
+                                    
                                 </table>
                                 <a href="#" id="vaciar-carrito" class="btn-3">Vaciar carrito</a>
+                                <a href="#" id="finalizar-compra-button" class="btn-3">Finalizar compra</a>
+                                <script>
+                                    document.addEventListener("DOMContentLoaded", function() {
+                                        var agregarproductoButton = document.getElementById("finalizar-compra-button");
+                                        agregarproductoButton.addEventListener("click", function() {
+                                        window.location.href = "{% url 'Core:compra' %}";
+                                        });
+                                        });
+                                </script>
                             </div>
                         </li>
                     </ul>
                 </div>
-            </div>
         </div>
     </header>
         <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script> <!--Biblioteca-->
         <script>
-document.addEventListener("DOMContentLoaded", function() {
-    const productos = document.querySelectorAll('.items');
-    const carrito = document.getElementById('carrito');
-    const vaciarCarritoBtn = document.getElementById('vaciar-carrito');
-    const listaCarrito = document.querySelector('#lista-carrito tbody');
+            document.addEventListener("DOMContentLoaded", function () {
+                const botonesAgregarCarrito = document.querySelectorAll('.agregar-carrito');
+                const listaCarrito = document.querySelector('#lista-carrito tbody');
+        
+                // Recuperar productos del carrito almacenados en localStorage al cargar la página
+                const carritoProductos = JSON.parse(localStorage.getItem('carrito')) || [];
+             
+                
+                // Agregar productos del carrito almacenados en localStorage a la lista
+                carritoProductos.forEach(producto => {
+                    agregarProductoAlCarrito(producto);
+                });
+        
+                botonesAgregarCarrito.forEach(boton => {
+                    boton.addEventListener('click', comprarElemento);
+                });
+        
+                function comprarElemento(event) {
+                    event.preventDefault();
+        
+                    // Obtén la información del producto desde el contenedor del botón
+                    const contenedorProducto = event.currentTarget.closest('.items');
+                    const producto = obtenerInfoProducto(contenedorProducto);
+        
+                    // Agrega el producto al carrito y almacénalo en localStorage
+                    agregarProductoAlCarrito(producto);
+                    guardarCarritoEnLocalStorage();
+                }
+        
+                function obtenerInfoProducto(contenedorProducto) {
+                    const infoProducto = {
+                        imagen: contenedorProducto.querySelector('img').src,
+                        nombre: contenedorProducto.querySelector('.info-product h2').textContent,
+                        precio: contenedorProducto.querySelector('.info-product .price').textContent,
+                        id: contenedorProducto.getAttribute('data-id')
+                    };
+                    return infoProducto;
+                }
+        
+                function agregarProductoAlCarrito(producto) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>
+                            <img src="${producto.imagen}" width="50">
+                        </td>
+                        <td>${producto.nombre}</td>
+                        <td>${producto.precio}</td>
+                        <td>
+                            <a href="#" class="eliminar-elemento" data-id="${producto.id}">X</a>
+                        </td>
+                    `;
+                    listaCarrito.appendChild(row);
+        
+                    // Actualiza los eventos de eliminar después de agregar un nuevo elemento
+                    actualizarEventosEliminar();
+                    actualizarCarrito();
+                }
+        
+                function actualizarEventosEliminar() {
+                    const botonesEliminar = document.querySelectorAll('.eliminar-elemento');
+                    botonesEliminar.forEach(boton => {
+                        boton.addEventListener('click', eliminarElemento);
+                    });
+                }
+        
+                function eliminarElemento(event) {
+                    event.preventDefault();
+                    const productoId = event.currentTarget.getAttribute('data-id');
+                    const productoEliminar = document.querySelector(`#lista-carrito [data-id="${productoId}"]`);
+                    productoEliminar.parentElement.parentElement.remove();
+        
+                    // Actualiza el carrito en localStorage después de eliminar un producto
+                    guardarCarritoEnLocalStorage();
+                    actualizarCarrito();
+                }
+        
+                const vaciarCarritoBtn = document.getElementById('vaciar-carrito');
+                vaciarCarritoBtn.addEventListener('click', vaciarCarrito);
+        
+                function vaciarCarrito() {
+                    while (listaCarrito.firstChild) {
+                        listaCarrito.removeChild(listaCarrito.firstChild);
+                    }
+        
+                    // Vacía el carrito en localStorage
+                    localStorage.removeItem('carrito');
+                    actualizarCarrito();
+                }
+        
+                // Función para almacenar el carrito en localStorage
+                function guardarCarritoEnLocalStorage() {
+                    const productosCarrito = [];
+                    const filasCarrito = listaCarrito.querySelectorAll('tr');
+        
+                    filasCarrito.forEach(fila => {
+                        const producto = {
+                            imagen: fila.querySelector('img').src,
+                            nombre: fila.querySelectorAll('td')[1].textContent,
+                            precio: fila.querySelectorAll('td')[2].textContent,
+                            id: fila.querySelector('.eliminar-elemento').getAttribute('data-id')
+                        };
+                        productosCarrito.push(producto);
+                    });
+        
+                    // Almacena el carrito en localStorage como JSON
+                    localStorage.setItem('carrito', JSON.stringify(productosCarrito));
+                }
 
-    if (productos.length > 0 && carrito && vaciarCarritoBtn) {
-        cargarEventListeners();
-    } else {
-        console.error('Alguno de los elementos no se encontró en el DOM.');
-    }
+                function actualizarTotalCarrito() {
+                    const subtotalPrecioElement = document.getElementById('subtotal-precio');
+                    const impuestoPrecioElement = document.getElementById('impuesto-precio');
+                    const totalPrecioElement = document.getElementById('total-precio');
+                    const filasCarrito = listaCarrito.querySelectorAll('tr');
 
-    function cargarEventListeners() {
-        productos.forEach(producto => {
-            producto.addEventListener('click', comprarElemento);
-        });
+                    let subtotal = 0;
+                    filasCarrito.forEach(fila => {
+                    const precio = parseFloat(fila.querySelectorAll('td')[2].textContent.replace('$', ''));
+                    subtotal += precio;
+                    });
 
-        // Manejar clic en "Agregar al carrito" utilizando jQuery
-        $('.agregar-carrito').on('click', function(event) {
-            event.preventDefault();
-            const productoId = $(this).data('id');
-            const producto = obtenerInfoProducto($(this).closest('.items')[0]);
-            agregarProductoAlCarrito(producto);
-        });
+                    // Calcula el impuesto (7%)
+                    const impuesto = subtotal * 0.07;
 
-        // Manejar clic en "Más información" utilizando jQuery
-        $('.mas-informacion').on('click', function(event) {
-            // Tu lógica específica para "Más información"
-            event.preventDefault();
-            const productoId = $(this).data('id');
-            // Agrega aquí la lógica que deseas ejecutar al hacer clic en "Más información"
-        });
+                    // Calcula el total sumando el subtotal y el impuesto
+                    const total = subtotal + impuesto;
 
-        carrito.addEventListener('click', eliminarElemento);
-        vaciarCarritoBtn.addEventListener('click', vaciarCarrito);
-    }
+                    subtotalPrecioElement.textContent = subtotal.toFixed(2);
+                    impuestoPrecioElement.textContent = impuesto.toFixed(2);
+                    totalPrecioElement.textContent = total.toFixed(2);
+                }
 
-    function comprarElemento(event) {
-        event.preventDefault();
+                // Llama a esta función cada vez que agregues, elimines o vacíes el carrito
+                function actualizarCarrito() {
+                    actualizarTotalCarrito();
+                    guardarCarritoEnLocalStorage();
+                }
 
-        // Obtén la información del producto
-        const producto = obtenerInfoProducto(event.currentTarget);
-
-        // Agrega el producto al carrito
-        agregarProductoAlCarrito(producto);
-    }
-
-    function obtenerInfoProducto(producto) {
-        const infoProducto = {
-            imagen: producto.querySelector('img').src,
-            nombre: producto.querySelector('h2').textContent,
-            precio: producto.querySelector('.price').textContent,
-            id: producto.querySelector('.agregar-carrito').getAttribute('data-id')
-        };
-        return infoProducto;
-    }
-
-    function agregarProductoAlCarrito(producto) {
-        const row = document.createElement('tr');
-        row.innerHTML = `
-            <td>
-                <img src="${producto.imagen}" width="50">
-            </td>
-            <td>${producto.nombre}</td>
-            <td>${producto.precio}</td>
-            <td>
-                <a href="#" class="eliminar-elemento" data-id="${producto.id}">X</a>
-            </td>
-        `;
-        listaCarrito.appendChild(row);
-    }
-
-    function eliminarElemento(e) {
-        e.preventDefault();
-        if (e.target.classList.contains('eliminar-elemento')) {
-            const productoId = e.target.getAttribute('data-id');
-            const productoEliminar = document.querySelector(`#lista-carrito [data-id="${productoId}"]`);
-            productoEliminar.parentElement.parentElement.remove();
-        }
-    }
-
-    function vaciarCarrito() {
-        while (listaCarrito.firstChild) {
-            listaCarrito.removeChild(listaCarrito.firstChild);
-        }
-    }
-});
-
-
+                function obtenerProductosDelCarrito() {
+                    return JSON.parse(localStorage.getItem('carrito')) || [];
+                }
+            });
         </script>
 
     {% block content %}{% endblock %}

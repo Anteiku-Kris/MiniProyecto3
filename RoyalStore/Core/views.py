@@ -182,3 +182,6 @@ def ver_perfil(request, username):
         form = UserProfileFormWithoutWebsite(instance=profile)
 
     return render(request, 'registration/perfil.html', {'user': user, 'profile': profile, 'form': form})
+
+def compra(request):
+    return render(request, 'compra.html')

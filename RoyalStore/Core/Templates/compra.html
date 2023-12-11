@@ -2,8 +2,149 @@
 {% load static %}
 
 {% block content %}
+    </head>
+    <body>
+        <h1>Carrito de Compras</h1>
+        <table id="mi-tabla">
+            <!-- Encabezado de la tabla -->
+            <thead>
+                <tr>
+                    <th>Imagen</th>
+                    <th>Nombre</th>
+                    <th>Precio</th>
+                </tr>
+            </thead>
+            <!-- Cuerpo de la tabla (se llenará con JavaScript) -->
+            <tbody></tbody>
+            <!-- Pie de la tabla para mostrar el total -->
+            <tfoot>
+                <tr>
+                    <td colspan="2"></td>
+                    <td>Subtotal:</td>
+                    <td id="mi-subtotal-precio">0.00</td>
+                </tr>
+                <tr>
+                    <td colspan="2"></td>
+                    <td>Impuesto (7%):</td>
+                    <td id="mi-impuesto-precio">0.00</td>
+                </tr>
+                <tr>
+                    <td colspan="2"></td>
+                    <td>Total:</td>
+                    <td id="mi-total-precio">0.00</td>
+                </tr>
+            </tfoot>
+        </table>
+        <a href="#" id="vaciarC" class="btn-3">Vaciar carrito</a>
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                actualizarTotalCarrito();
+            });
+        
+            function actualizarTotalCarrito() {
+                console.log('Actualizando total del carrito');
+        
+                // Obtener la referencia al tbody y los elementos del nuevo total, nuevo impuesto y nuevo subtotal
+                const listaCarrito = document.querySelector('#mi-tabla tbody');
+                const nuevoSubtotalPrecioElement = document.getElementById('mi-subtotal-precio');
+                const nuevoImpuestoPrecioElement = document.getElementById('mi-impuesto-precio');
+                const nuevoTotalPrecioElement = document.getElementById('mi-total-precio');
 
 
+                const vaciarBtn = document.getElementById('vaciarC');
+                vaciarBtn.addEventListener('click', vaciar);
 
-{% include 'footer.html' %}
+        
+                // Obtener productos del carrito desde localStorage
+                const productosCarrito = obtenerProductosDelCarrito();
+                console.log(localStorage.getItem('carrito'));
+        
+                // Mostrar productos en la tabla
+                listaCarrito.innerHTML = ''; // Limpiar la tabla antes de volver a llenarla
+                productosCarrito.forEach(producto => {
+                    agregarProductoAlCarrito(producto);
+                });
+        
+                // Calcular y mostrar el nuevo total
+                calcularYMostrarNuevoTotal();
+        
+            function obtenerProductosDelCarrito() {
+                return JSON.parse(localStorage.getItem('carrito')) || [];
+            }
+
+            productosCarrito.forEach(producto => {
+            const precioNumerico = parseFloat(producto.precio);
+            if (!isNaN(precioNumerico)) {
+            nuevoSubtotal += precioNumerico;
+            }
+            });
+
+            function agregarProductoAlCarrito(producto) {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                <td>
+                    <img src="${producto.imagen}" width="50">
+                </td>
+                <td>${producto.nombre}</td>
+                <td>${producto.precio}</td>
+                <td>
+                    <a href="#" class="eliminar-element" data-id="${producto.id}">X</a>
+                </td>
+                `;
+                listaCarrito.appendChild(row);
+            }
+
+        
+            function calcularYMostrarNuevoTotal() {
+                let nuevoSubtotal = 0;
+
+                productosCarrito.forEach(producto => {
+                // Accede a los elementos de la fila en la que se está iterando
+                const precioProducto = parseFloat(producto.precio.replace('$', ''));
+        
+                // Verifica que el precio sea un número válido antes de sumarlo al subtotal
+                if (!isNaN(precioProducto)) {
+                nuevoSubtotal += precioProducto;
+                } else {
+                    console.error(`Precio no válido para el producto: ${producto.nombre}`);
+                }
+                });
+
+                // Calcula el nuevo impuesto (7%)
+                const nuevoImpuesto = nuevoSubtotal * 0.07;
+
+                // Calcula el nuevo total sumando el nuevo subtotal y el nuevo impuesto
+                const nuevoTotal = nuevoSubtotal + nuevoImpuesto;
+
+                nuevoSubtotalPrecioElement.textContent = nuevoSubtotal.toFixed(2);
+                nuevoImpuestoPrecioElement.textContent = nuevoImpuesto.toFixed(2);
+                nuevoTotalPrecioElement.textContent = nuevoTotal.toFixed(2);
+            }
+
+            function vaciar() {
+                // Elimina todos los elementos del carrito
+                listaCarrito.innerHTML = '';
+
+                // Vacía el carrito en localStorage
+                localStorage.removeItem('carrito');
+
+                // Recalcula y muestra los totales
+                calcularYMostrarNuevoTotal();
+
+                // Restablecer totales a 0.00
+                nuevoSubtotalPrecioElement.textContent = '0.00';
+                nuevoImpuestoPrecioElement.textContent = '0.00';
+                nuevoTotalPrecioElement.textContent = '0.00';
+            }
+
+            function obtenerProductosDelCarrito() {
+                // Retorna la lista de productos del carrito desde localStorage
+                return JSON.parse(localStorage.getItem('carrito')) || [];
+            }
+    }
+    </script>  
+    </body>
+
+    {% include 'footer.html' %}
+</html>
 {% endblock %}
