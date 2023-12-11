@@ -19,38 +19,24 @@
 </div>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const forms = document.querySelectorAll(".contactForm");
+   document.addEventListener("DOMContentLoaded", function () {
+    const forms = document.querySelectorAll(".contactForm");
 
-        forms.forEach(function (form) {
-            form.addEventListener("submit", function (event) {
-                event.preventDefault(); // Evita que el formulario se envíe normalmente
+    forms.forEach(function (form) {
+        form.addEventListener("submit", function (event) {
+            event.preventDefault(); // Evita que el formulario se envíe normalmente
 
-                // Muestra el mensaje emergente personalizado
-                mostrarMensaje("Solicitud enviada. Nos pondremos en contacto pronto.");
+            // Muestra el mensaje emergente personalizado con estilo
+            mostrarNotificacion("Solicitud enviada. Nos pondremos en contacto pronto.", "mostrarNotificacion");
 
-                // Espera 4 segundos antes de enviar el formulario
-                setTimeout(function () {
-                    // Envía el formulario después de 4 segundos
-                    form.submit();
-                }, 4000);
-            });
-        });
-
-        function mostrarMensaje(mensaje) {
-            // Crear un elemento de mensaje personalizado
-            const mensajePopup = document.createElement("div");
-            mensajePopup.className = "popup";
-            mensajePopup.textContent = mensaje;
-
-            // Agregar el mensaje al cuerpo del documento
-            document.body.appendChild(mensajePopup);
-
-            // Establecer un temporizador para ocultar el mensaje después de 4 segundos
+            // Espera 4 segundos antes de enviar el formulario
             setTimeout(function () {
-                document.body.removeChild(mensajePopup);
+                // Envía el formulario después de 4 segundos
+                form.submit();
             }, 4000);
-        }
+        });
+    });
+
     });
 </script>
 
@@ -68,17 +54,6 @@
     margin-bottom: 50px;
 }
 
-.popup {
-    position: fixed;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    padding: 15px;
-    background-color: #9D76C1; /* Color de fondo personalizado */
-    color: #fff; /* Color del texto */
-    border-radius: 5px;
-    z-index: 9999;
-}
 
 input{
     background-color: #E5CFF7; 
