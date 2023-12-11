@@ -46,10 +46,9 @@
                 <p class="price">$ {{ producto.price }}</p>
                 <a href="{% url 'Core:producto' producto.id %}">Más información</a>
                 <button class="agregar-carrito btn-3" data-id="{{ producto.id }}">Agregar al carrito</button>
-                <div class="title">Agregar a favoritos</div>
-                    <div class="heart-wrapper">
-                        <i class="far fa-heart"></i>
-                </div>
+            </div>
+            <div class="favs">
+                <button class="agregar-carrito btn-3" data-id="{{ producto.id }}">Agregar a favoritos</button>
             </div>
         </div>
         {% endfor %}
@@ -176,108 +175,28 @@ form {
     display: none;
 }
 
-/*Corazon*/
+.favs{
+  padding: 15px 30px;
+  line-height: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 
-.title {
-  display: block;
+.favs h2{
+  color: #fff;
+  size: 18px;
+}
+
+
+.favs button{
+  border: none;
+  background: none;
+  background-color: #000;
+  color: #fff;
+  padding: 15px 10px;
+  cursor: pointer;
   text-align: center;
-  font-family: sans-serif;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  font-size: 24px;
-  color: grey;
-}
-.heart-wrapper {
-  width: 50px;
-  height: 50px;
-  margin-top: 500px;
-  position: relative;
-  background-color: white;
-  border-radius: 50px;
-  margin: auto;
-  -webkit-box-shadow: 0px 3px 29px 0px rgba(160, 160, 160, 1);
-  -moz-box-shadow: 0px 3px 29px 0px rgba(160, 160, 160, 1);
-  box-shadow: 0px 3px 29px 0px rgba(160, 160, 160, 1);
-  transition: 0.3s;
-}
-.heart-wrapper:hover {
-  -webkit-box-shadow: 0px 2px 15px 0px rgba(117, 117, 117, 1);
-  -moz-box-shadow: 0px 2px 15px 0px rgba(117, 117, 117, 1);
-  box-shadow: 0px 2px 15px 0px rgba(117, 117, 117, 1);
-}
-.fa-heart {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 30px;
-  color: #ff8484;
-  transition: 1s;
-}
-.background-heart{
-  background-color:white;
-}
-.background-heart::after {
-  font-family: "Font Awesome 5 Free";
-  font-weight: 700;
-  content: "\f004";
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 38px;
-  color: red;
-  transition: 1s;
-  z-index: -1;
-  animation: fill-heart 1s;
-}
-
-.background-heart::before {
-  content: "";
-  width: 50px;
-  height: 50px;
-  opacity: 0.2;
-  background-color: red;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: -1;
-  border-radius: 200px;
-  animation: circle-expand 1s;
-}
-
-@keyframes fill-heart {
-  0% {
-    opacity: 0;
-  }
-
-  100% {
-    opacity: 1;
-  }
-}
-@keyframes circle-expand {
-  0% {
-    width: 60px;
-    height: 60px;
-    opacity: 1;
-  }
-  40% {
-    width: 0px;
-    height: 0px;
-    opacity: 0.2;
-  }
-  80% {
-    width: 60px;
-    height: 60px;
-    opacity: 0.2;
-  }
-
-  100% {
-    width: 60px;
-    height: 60px;
-    opacity: 0.2;
-  }
 }
 
 </style>
@@ -328,11 +247,11 @@ form {
         });
     }
 
-    $(".fa-heart").click(function() {
-  $(this).toggleClass("background-heart");
-});
+    
 
 </script>
 
 {% include 'footer.html' %}
 {% endblock %}
+message.txt
+7 KB

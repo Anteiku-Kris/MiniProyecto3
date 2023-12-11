@@ -11,18 +11,26 @@
    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
    <script src="https://kit.fontawesome.com/ee26d7fa70.js" crossorigin="anonymous"></script>
    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+
 
 </head>
 <body>
     <ul>
           <!-- Mostrar mensajes -->
           {% if messages %}
-          <ul class="messages">
-            {% for message in messages %}
-              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-            {% endfor %}
-          </ul>
-        {% endif %}
+                {% for message in messages %}
+                <script>
+                    document.addEventListener("DOMContentLoaded", function() {
+                                // Llama a la función mostrarNotificacion con el contenido del mensaje
+                                mostrarNotificacion("{{ message }}");
+                          
+                    });
+                </script>
+                {% endfor %}
+            {% endif %}
         <header>
             <div class="back">
                 <div class="menu container">
@@ -236,8 +244,34 @@
                 }
             });
 
+            function mostrarNotificacion(mensaje, tipo) {
+        // Configuración de Toastr
+        toastr.options = {
+            closeButton: true,
+            progressBar: true,
+            positionClass: 'toast-top-center',
+            showDuration: 400,
+            hideDuration: 1000,
+            timeOut: 5000,
+            extendedTimeOut: 1000
+        };
 
-            
+        // Muestra la notificación según el tipo
+        switch (tipo) {
+            case 'success':
+                toastr.success(mensaje);
+                break;
+            case 'error':
+                toastr.error(mensaje);
+                break;
+            case 'warning':
+                toastr.warning(mensaje);
+                break;
+            default:
+                toastr.info(mensaje);
+        }
+
+      }
 
 
         </script>
