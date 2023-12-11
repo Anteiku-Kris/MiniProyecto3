@@ -6,45 +6,15 @@
 <body class="Productoos">
 
 <section class="contenedor">
-            <form action="">
-                <input type="text" class="barra-busqueda" id="barra-busqueda" placeholder="Buscar">
-            </form>
-            <div class="categorias" id="categorias">
-                <a href="#" class="activo">Todos</a>
-                <a href="#">Prenda superior</a>
-                <a href="#">Prenda inferior</a>
-                <a href="#">Zapatillas</a>
-            </div>
+    <form id="formulario-busqueda">
+        <input type="text" class="barra-busqueda" id="barra-busqueda" placeholder="Buscar">
+    </form>
+    <div class="categorias" id="categorias">
+        {% for categoria, productos in categorias_con_productos.items %}
+            <a href="#categoria-{{ categoria.name }}">{{ categoria.name }}</a>
+        {% endfor %}
+    </div>
 </section>
-        <section class="grid" id="grid">
-            <div class="item" data-categoria="back-end" data-etiquetas="tecnologia c++ backend " data-descripcion="descripcion de la imagen">
-                <div class="item-contenido">
-                    <img loading="lazy" src="./img/c++1.png">
-                </div>
-            </div>
-            <div class="item" data-categoria="back-end" data-etiquetas="tecnologia c++ backend " data-descripcion="descripcion de la imagen">
-                <div class="item-contenido">
-                    <img loading="lazy" src="./img/c++2.png">
-                </div>
-            </div>
-            <div class="item" data-categoria="front-end" data-etiquetas="tecnologia css fromend " data-descripcion="descripcion de la imagen">
-                <div class="item-contenido">
-                    <img loading="lazy" src="./img/css1.jpeg">
-                </div>
-            </div>
-            <div class="item" data-categoria="front-end" data-etiquetas="tecnologia css fromend " data-descripcion="descripcion de la imagen">
-                <div class="item-contenido">
-                    <img loading="lazy" src="./img/css2.png">
-                </div>
-            </div>
-        </section>
-        <section class="overlay" id="overlay">
-            <div class="contenedor-img">
-                <button id="btn-cerrar-popup"><i class="fas fa-times"></i></button>
-                <img src="" alt="">
-            </div>
-            <p class="descripcion">officia sint</p>
-        </section>
 
 
     <div> 
@@ -64,7 +34,7 @@
     
     <div class="CN1">
         {% for categoria, productos in categorias_con_productos.items %}
-    <h1>{{ categoria.name }}</h1>
+        <h1 id="categoria-{{ categoria.name }}">{{ categoria.name }}</h1>
     <div class="container-items">
         {% for producto in productos %}
         <div class="items" data-id="{{ producto.id }}">
@@ -233,8 +203,65 @@ form {
     top: -20px;
 }
 
-    </style>
+.items {
+    display: block;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
 
+.items:hidden {
+    display: none;
+}
 
-    {% include 'footer.html' %}
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var formularioBusqueda = document.getElementById("formulario-busqueda");
+        var barraBusqueda = document.getElementById("barra-busqueda");
+
+        formularioBusqueda.addEventListener("submit", function(event) {
+            event.preventDefault();
+            var term = barraBusqueda.value.toLowerCase();
+            filterProductos(term);
+        });
+
+        // Para seleccionar los enlaces que hice en categoria
+        var linksCategorias = document.querySelectorAll('.categorias a');
+
+        // Para agregar eventos de clicks en cada enlace
+        linksCategorias.forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+
+                // Obtiene el destino del enlace
+                var targetId = link.getAttribute('href').substring(1);
+
+                // Obtiene el elemento con el ID correspondiente
+                var targetElement = document.getElementById(targetId);
+
+                // El tagetElement lo usare para hacer el desplazamiento hacia la categoria.
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+    });
+
+    function filterProductos(term) {
+        var items = document.querySelectorAll('.items');
+        items.forEach(function(item) {
+            var nombreProducto = item.querySelector('h2').innerText.toLowerCase();
+            if (nombreProducto.includes(term)) {
+                item.style.display = "block";
+            } else {
+                item.style.display = "none";
+            }
+        });
+    }
+</script>
+
+{% include 'footer.html' %}
 {% endblock %}
