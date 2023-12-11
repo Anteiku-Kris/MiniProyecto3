@@ -37,18 +37,23 @@
     <button id="mostrarFavoritosBtn">Mostrar Favoritos</button>
 
     <!-- Panel de favoritos (inicialmente oculto) -->
-    <div id="panelFavoritos" style="display: none;">
-        <h3>Favoritos</h3>
-        {% if profile.favorites %}
-            <ul>
-                {% for favorite in profile.favorites %}
-                    <li>{{ favorite }}</li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <p>No hay favoritos</p>
-        {% endif %}
-    </div>
+<div id="panelFavoritos" style="display: none;">
+    <h3>Favoritos</h3>
+    {% csrf_token %}
+    {% if profile.favorites.all %}
+        <ul>
+            {% for favorite in profile.favorites.all %}
+            <li>
+                <img src="{{ favorite.image.url }}" alt="{{ favorite.name }}" width="50" height="50">
+                {{ favorite.name }} - Precio: {{ favorite.price }}
+            </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hay favoritos</p>
+    {% endif %}
+</div>
+
     <!-- Botón para mostrar/ocultar el panel de edición -->
     <button id="editarPerfilBtn">Editar perfil</button>
 
@@ -58,7 +63,7 @@
         <form method="post" enctype="multipart/form-data">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Guardar foto de perfil</button>
+            <button type="submit">Guardar perfil</button>
         </form>
         <!-- Agrega aquí más campos de edición según sea necesario -->
     </div>

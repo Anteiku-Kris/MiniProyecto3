@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.views import View
-from .forms import  AgregarproductosForm, CustomUserCreationForm, ResenaForm, ContactoForm, UserProfileFormWithoutWebsite
+from .forms import  AgregarproductosForm, CustomUserCreationForm, ResenaForm, ContactoForm, UserProfileForm
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
 from .models import Productos, Categoria, Resena, UserProfile
@@ -174,14 +174,26 @@ def ver_perfil(request, username):
         profile = UserProfile.objects.create(user=user)
 
     if request.method == 'POST':
-        form = UserProfileFormWithoutWebsite(request.POST, request.FILES, instance=profile)
+        form = UserProfileForm(request.POST, request.FILES, instance=profile)
         if form.is_valid():
             form.save()
             return redirect('Core:perfil', username=username)
     else:
-        form = UserProfileFormWithoutWebsite(instance=profile)
+        form = UserProfileForm(instance=profile)
 
     return render(request, 'registration/perfil.html', {'user': user, 'profile': profile, 'form': form})
 
 def compra(request):
     return render(request, 'compra.html')
+
+
+
+def agregar_favorito(request):
+    if request.method == 'POST' and request.user.is_authenticated:
+        producto_id = request.POST.get('producto_id')
+        if producto_id:  # Asegúrate de que producto_id tiene un valor
+            producto = get_object_or_404(Productos, pk=producto_id)
+            perfil_usuario = UserProfile.objects.get(user=request.user)
+            perfil_usuario.favorites.add(producto)
+            messages.success(request, f'Se ha agregado {producto.name} a tus favoritos.')
+        return redirect('Core:productos')

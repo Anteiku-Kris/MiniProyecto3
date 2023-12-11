@@ -4,7 +4,7 @@
 {% block content %}
 
 <body>
-    <div class="contenedor-ag">
+    <div class="contenedor-agg">
         <form method="post" action="" enctype="multipart/form-data">
             <h2>Editar Producto</h2>
             <div class="content">
@@ -49,6 +49,21 @@
             </div>
         </form>
     </div>
+
+    <style>
+    .contenedor-agg {
+        max-width: 650px;
+        padding: 30px;
+        margin: 0 auto;
+        border-radius: 10px;
+        overflow: hidden;
+        background: rgb(248, 248, 248);
+        box-shadow: 0 15px 20px rgba(0, 0, 0, 0.6);
+        text-align: center;
+        height: 550px; 
+      }
+      </style>
+
 </body>
     {% include 'footer.html' %}
 {% endblock %}

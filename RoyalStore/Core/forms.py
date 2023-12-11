@@ -28,13 +28,6 @@ class CategoriaForm(forms.ModelForm):
         model = Categoria
         fields =('name','description','categoria', )
 
-
-class CustomUserCreationForm(UserCreationForm):
-    
-    class Meta:
-        model = User
-        fields = ['username', "first_name", "last_name", "email", "password1", "password2"]
-
         
 class ResenaForm(forms.ModelForm):
     class Meta:
@@ -50,9 +43,5 @@ class ContactoForm(forms.ModelForm):
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = UserProfile
-        fields = ['profile_picture', 'bio', 'website']
+        fields = ['profile_picture', 'bio']
 
-class UserProfileFormWithoutWebsite(forms.ModelForm):
-    class Meta:
-        model = UserProfile
-        exclude = ['website','user']  
