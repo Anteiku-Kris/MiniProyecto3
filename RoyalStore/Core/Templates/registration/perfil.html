@@ -4,7 +4,8 @@
 {% block content %}
 
     <h2>Perfil de {{ user.username }}</h2>
-    
+
+<div class="containerP">
 <div class="top">
     <!-- Mostrar la foto de perfil actual -->
     {% if profile.profile_picture %}
@@ -27,6 +28,20 @@
     <h3>Información del Perfil</h3>
     <p>Email: {{ user.email }}</p>
     <p>Bio: {{ profile.bio }}</p>
+
+    <button id="editarPerfilBtn">Editar perfil</button>
+
+    <!-- Panel de edición (inicialmente oculto) -->
+    <div id="panelEdicion" style="display: none;">
+        <!-- Formulario para actualizar la foto de perfil -->
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Guardar perfil</button>
+        </form>
+        <!-- Agrega aquí más campos de edición según sea necesario -->
+    </div>
+
 </div>
 
 <div class="BTI">
@@ -44,7 +59,7 @@
         <ul>
             {% for favorite in profile.favorites.all %}
             <li>
-                <img src="{{ favorite.image.url }}" alt="{{ favorite.name }}" width="50" height="50">
+                <img src="{{ favorite.image.url }}" alt="{{ favorite.name }}" width="130" height="130">
                 {{ favorite.name }} - Precio: {{ favorite.price }}
             </li>
             {% endfor %}
@@ -53,20 +68,7 @@
         <p>No hay favoritos</p>
     {% endif %}
 </div>
-
-    <!-- Botón para mostrar/ocultar el panel de edición -->
-    <button id="editarPerfilBtn">Editar perfil</button>
-
-    <!-- Panel de edición (inicialmente oculto) -->
-    <div id="panelEdicion" style="display: none;">
-        <!-- Formulario para actualizar la foto de perfil -->
-        <form method="post" enctype="multipart/form-data">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Guardar perfil</button>
-        </form>
-        <!-- Agrega aquí más campos de edición según sea necesario -->
-    </div>
+</div>
 </div>
 
     <script>
@@ -122,7 +124,7 @@
 
     .top{
         background-color: #E5CFF7; 
-	    width: 300px; 
+	    width: 355px; 
 	    height: 285px; 
 	    border-radius: 20px;  
 	    border-style: solid; 
@@ -159,8 +161,8 @@
 
     .info{
         background-color: #E5CFF7; 
-	    width: 300px; 
-	    height: 185px; 
+	    width: 355px; 
+	    height: 585px; 
 	    border-radius: 20px;  
 	    border-style: solid; 
 	    border-width: 1px; 
@@ -178,15 +180,36 @@
         text-align: center;
     }
 
+    .info button{
+        font-family: 'Poppins', sans-serif;
+        font-weight: 700;
+	    height: 45px; 
+	    padding-left: 5px;
+	    padding-right: 5px; 	
+	    margin-bottom: 20px; 
+	    margin-top: 10px; 	
+	    background-color: #E5CFF7; 
+	    border-color: #713ABE; 
+	    border-style: solid; 
+    	border-radius: 20px;	
+	    width: 100px;   
+        cursor: pointer;
+    }
+
     .info h3{
         padding-bottom: 15px;
         font-size: 26px;
     }
 
-    .BTI {
+    .container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.BTI {
     background-color: #E5CFF7;
     width: 750px;
-    height: 485px;
+    height: 785px;
     border-radius: 20px;
     border-style: solid;
     border-width: 2px;
@@ -199,10 +222,25 @@
     color: #242430;
     padding-bottom: 20px;
     position: absolute;
-    left: 450px;
+    left: 550px;
     right: 5px;
-    top: 50%; /* Posición vertical en el centro */
-    transform: translateY(-50%); /* Ajusta para centrar verticalmente */
+    top: 15%; /* Posición vertical en el centro /
+    transform: translateY(-50%); / Ajusta para centrar verticalmente */
+}
+
+.BTI {
+    max-width: 600px;
+    padding: 20px;
+}
+
+.top {
+    width: 355px;
+    height: 285px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 36px;
+    padding-bottom: 20px;
 }
 
 .BTI h3{
@@ -238,9 +276,25 @@
     margin-bottom: 50px;
     }
 
+    #panelEdicion form input[type="file"] {
+  width: 250px;
+  padding: 8px;
+  margin-bottom: 16px;
+  border-radius: 50px;
+  border: none;
+  background-color: #7270ec;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#panelEdicion form input[type="file"]:hover {
+  background-color: #9D76C1;
+}
+
     textarea{
     background-color: #fbfbfb; 
-	width: 350px; 
+	width: 340px; 
 	height: 145px; 
 	border-radius: 5px;  
 	border-style: solid; 
@@ -251,6 +305,8 @@
     margin-bottom: 20px; 
     padding-top: 15px; 
 }
+
+
 
     /* Estilos para el navbar */
     #navbar {
@@ -321,6 +377,49 @@
         font-weight: bold;
         cursor: pointer;
     }
+
+
+
+#mostrarFavoritosBtn,
+#panelFavoritos {
+  margin-top: 10px;
+}
+
+#mostrarFavoritosBtn {
+  background-color: #7270ec;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#panelFavoritos {
+  display: none;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+#panelFavoritos h3 {
+  margin-bottom: 15px;
+}
+
+#panelFavoritos ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+#panelFavoritos li {
+  margin-bottom: 15px;
+}
+
+#panelFavoritos img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
 
 </style>
 
