@@ -4,6 +4,19 @@
 {% block content %}
 
 <body class="Productoos">
+
+<section class="contenedor">
+    <form id="formulario-busqueda">
+        <input type="text" class="barra-busqueda" id="barra-busqueda" placeholder="Buscar">
+    </form>
+    <div class="categorias" id="categorias">
+        {% for categoria, productos in categorias_con_productos.items %}
+            <a href="#categoria-{{ categoria.name }}">{{ categoria.name }}</a>
+        {% endfor %}
+    </div>
+</section>
+
+
     <div> 
         <div>
             <button type="button" class="btn btn-primary circular-btn" id="agregar-productos-button" style="font-size: 24px; position: fixed;">+</button>
@@ -17,12 +30,14 @@
             </script>
         </div> 
     </div>
+
+    
     <div class="CN1">
-    {% for categoria, productos in categorias_con_productos.items %}
-    <h1>{{ categoria.name }}</h1>
+        {% for categoria, productos in categorias_con_productos.items %}
+        <h1 id="categoria-{{ categoria.name }}">{{ categoria.name }}</h1>
     <div class="container-items">
         {% for producto in productos %}
-        <div class="items">
+        <div class="items" data-id="{{ producto.id }}">
             <figure>
                 <img src="{{ producto.image.url }}" alt="{{ producto.name }}">
             </figure>
@@ -30,13 +45,20 @@
                 <h2>{{ producto.name }}</h2>
                 <p class="price">$ {{ producto.price }}</p>
                 <a href="{% url 'Core:producto' producto.id %}">Más información</a>
+                <button class="agregar-carrito btn-3" data-id="{{ producto.id }}">Agregar al carrito</button>
+                <div class="title">Agregar a favoritos</div>
+                    <div class="heart-wrapper">
+                        <i class="far fa-heart"></i>
+                </div>
             </div>
         </div>
         {% endfor %}
     </div>
 {% endfor %}
-        <div>
-    </div>
+ </div>
+
+
+
 
 </body>
 
@@ -56,6 +78,261 @@
     transform: rotate(45deg);
     }
     
-    </style>
-    {% include 'footer.html' %}
+    /*Busqueda*/
+
+    a {
+    text-decoration: none;
+}
+
+.contenedor {
+    width: 90%;
+    max-width: 800%;
+    margin: auto;
+}
+
+
+/*HEADRE*/
+
+form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+} 
+
+.barra-busqueda {
+    width: 70%;
+    height: 40px;
+    line-height: 40px;
+    background: #fff;
+    padding: 0 20px;
+    border-radius: 100px;
+    border: none;
+    text-align: center;
+    font-size: 16px;
+} 
+
+.categorias {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+} 
+
+.categorias a {
+    color: #9b9b9b;
+    margin: 10px 20px;
+    font-size: 18px;
+    font-weight: 700;
+} 
+
+.categorias a.activo {
+    color: black;
+}
+
+/* grid*/
+
+.grid {
+    position: relative;
+    width: 100%;
+    opacity: 0;
+    transition: opacity 0.5s linear 1s;
+}
+
+.grid.imagenes-cargadas {
+    opacity: 1;
+}
+
+.grid .item {
+    position: absolute;
+    display: block;
+    padding: 0;
+    margin: 10px;
+    width: calc(33.333333% -20px)
+}
+
+.grid .item-contenido {
+    position: relative;
+}
+
+.grid .item img {
+    width: 80%;
+    cursor: pointer;
+    vertical-align: top;
+}
+
+.contenedor-img {
+    position: relative;
+}
+
+
+.items {
+    display: block;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.items:hidden {
+    display: none;
+}
+
+/*Corazon*/
+
+.title {
+  display: block;
+  text-align: center;
+  font-family: sans-serif;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-size: 24px;
+  color: grey;
+}
+.heart-wrapper {
+  width: 50px;
+  height: 50px;
+  margin-top: 500px;
+  position: relative;
+  background-color: white;
+  border-radius: 50px;
+  margin: auto;
+  -webkit-box-shadow: 0px 3px 29px 0px rgba(160, 160, 160, 1);
+  -moz-box-shadow: 0px 3px 29px 0px rgba(160, 160, 160, 1);
+  box-shadow: 0px 3px 29px 0px rgba(160, 160, 160, 1);
+  transition: 0.3s;
+}
+.heart-wrapper:hover {
+  -webkit-box-shadow: 0px 2px 15px 0px rgba(117, 117, 117, 1);
+  -moz-box-shadow: 0px 2px 15px 0px rgba(117, 117, 117, 1);
+  box-shadow: 0px 2px 15px 0px rgba(117, 117, 117, 1);
+}
+.fa-heart {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 30px;
+  color: #ff8484;
+  transition: 1s;
+}
+.background-heart{
+  background-color:white;
+}
+.background-heart::after {
+  font-family: "Font Awesome 5 Free";
+  font-weight: 700;
+  content: "\f004";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 38px;
+  color: red;
+  transition: 1s;
+  z-index: -1;
+  animation: fill-heart 1s;
+}
+
+.background-heart::before {
+  content: "";
+  width: 50px;
+  height: 50px;
+  opacity: 0.2;
+  background-color: red;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  border-radius: 200px;
+  animation: circle-expand 1s;
+}
+
+@keyframes fill-heart {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+@keyframes circle-expand {
+  0% {
+    width: 60px;
+    height: 60px;
+    opacity: 1;
+  }
+  40% {
+    width: 0px;
+    height: 0px;
+    opacity: 0.2;
+  }
+  80% {
+    width: 60px;
+    height: 60px;
+    opacity: 0.2;
+  }
+
+  100% {
+    width: 60px;
+    height: 60px;
+    opacity: 0.2;
+  }
+}
+
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var formularioBusqueda = document.getElementById("formulario-busqueda");
+        var barraBusqueda = document.getElementById("barra-busqueda");
+
+        formularioBusqueda.addEventListener("submit", function(event) {
+            event.preventDefault();
+            var term = barraBusqueda.value.toLowerCase();
+            filterProductos(term);
+        });
+
+        // Para seleccionar los enlaces que hice en categoria
+        var linksCategorias = document.querySelectorAll('.categorias a');
+
+        // Para agregar eventos de clicks en cada enlace
+        linksCategorias.forEach(function(link) {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+
+                // Obtiene el destino del enlace
+                var targetId = link.getAttribute('href').substring(1);
+
+                // Obtiene el elemento con el ID correspondiente
+                var targetElement = document.getElementById(targetId);
+
+                // El tagetElement lo usare para hacer el desplazamiento hacia la categoria.
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+    });
+
+    function filterProductos(term) {
+        var items = document.querySelectorAll('.items');
+        items.forEach(function(item) {
+            var nombreProducto = item.querySelector('h2').innerText.toLowerCase();
+            if (nombreProducto.includes(term)) {
+                item.style.display = "block";
+            } else {
+                item.style.display = "none";
+            }
+        });
+    }
+
+    $(".fa-heart").click(function() {
+  $(this).toggleClass("background-heart");
+});
+
+</script>
+
+{% include 'footer.html' %}
 {% endblock %}

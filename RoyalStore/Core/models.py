@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import User
+
 
 class Categoria(models.Model):
     name = models.CharField(max_length=50, unique=True)
@@ -28,5 +30,25 @@ class Resena(models.Model):
     comentario = models.TextField()
     puntuacion = models.PositiveIntegerField(default=0)  # Campo para almacenar la puntuación
 
-    def __str__(self):
+    def str(self):
         return f'Reseña de {self.producto.name}'
+
+class Contacto(models.Model):
+    nombre = models.CharField(max_length=100)
+    email = models.EmailField()
+    mensaje = models.TextField()
+
+    def __str__(self):
+        return self.nombre
+
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_picture = models.ImageField(upload_to='profile_pics', blank=True, null=True, default='default_profile_pic.jpg')
+    bio = models.TextField(max_length=500, blank=True)
+    website = models.URLField(blank=True)
+
+    def str(self):
+        return self.user.username
+
+
+    

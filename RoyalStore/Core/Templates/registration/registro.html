@@ -2,29 +2,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTFs-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro de usuario</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
 </head>
 <body>
-    <div class="container">
+    <div class="container mt-5">
 
-        <div class="row">
-            <div class="card">
-                <div class="card-body">
-                    <h2>Registro de usuario</h2>
-                    <hr>
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="text-center">Registro de usuario</h2>
+                        <hr>
 
-                    <form action="" method="post">
-                        {% csrf_token %}
-                        {{ form }}
-                        <li><a href="{% url 'Core:home' %}">Ir a home</a></li>
-                        <li><a href="{% url 'Core:login' %}">iniciar sesión</a></li>
-                        <input type="submit" value="registrar">
-                    </form>
+                        <form action="" method="post">
+                            {% csrf_token %}
+                            
+                            <div class="form-group">
+                                {{ form.username.label_tag }}
+                                {{ form.username }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form.email.label_tag }}
+                                {{ form.email }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form.password1.label_tag }}
+                                {{ form.password1 }}
+                            </div>
+
+                            <div class="form-group">
+                                {{ form.password2.label_tag }}
+                                {{ form.password2 }}
+                            </div>
+
+                            <div class="text-center">
+                                <a href="{% url 'Core:home' %}" class="btn btn-link">Ir a Home</a>
+                                <a href="{% url 'Core:login' %}" class="btn btn-link">Iniciar sesión</a>
+                            </div>
+                            <input type="submit" value="Registrar" class="btn btn-primary btn-block mt-3">
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Bootstrap JS y Popper.js (opcional) -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
